@@ -8,23 +8,21 @@ The original Metropolis theme has hard-coded font properties (sizes, weights, an
 
 ## Features
 
-- ✨ **Fully Configurable Typography**: Control font face, size, and weight for every element
-- 🎨 **Metropolis Aesthetic**: Maintains the clean, professional look of the original theme
-- 📝 **Fira Sans Default**: Uses Fira Sans as the default font family
-- 🔧 **Easy Customization**: Simple parameter-based configuration
-- 🎯 **Drop-in Replacement**: Compatible with Metropolis theme structure
+- **Fully Configurable Typography**: Control font face, size, and weight for every text element
+- **Granular Accent Colors**: Customize colors independently for hyperlinks, progress bars, alerts, and more
+- **Fira Sans Default**: Uses Fira Sans as the default font family for a clean, modern look
+- **Drop-in Replacement**: Compatible with Metropolis theme structure and conventions
 
 ## Installation
 
-Simply copy `metropolyst.typ` to your project directory or install it as a local Typst package.
+Copy `metropolyst.typ` to your project directory or install it as a local Typst package.
 
-## Usage
+## Quick Start
 
 ```typst
 #import "metropolyst.typ": *
 
 #show: metropolyst-theme.with(
-  aspect-ratio: "16-9",
   config-info(
     title: [Your Title],
     subtitle: [Your Subtitle],
@@ -39,123 +37,217 @@ Simply copy `metropolyst.typ` to your project directory or install it as a local
 
 #title-slide()
 
-== Section
+== Section Title
 
 #slide[
   = Slide Title
-
   Your content here...
 ]
 ```
 
-## Configuration Options
+See `example-default.typ` for a minimal working example and `example-custom.typ` for a comprehensive demonstration of all configuration options.
 
-### Font Configuration Parameters
+---
 
-Unlike the original Metropolis theme, Metropolyst exposes all font properties:
+## Configuration Reference
+
+### Layout Options
+
+These options control the overall slide layout and structure.
 
 | Parameter | Default | Description |
 |-----------|---------|-------------|
-| `header-font` | `("Fira Sans",)` | Font family for slide headers |
-| `header-size` | `1.2em` | Font size for slide headers |
-| `header-weight` | `"medium"` | Font weight for slide headers |
-| `footer-font` | `("Fira Sans",)` | Font family for footers |
-| `footer-size` | `0.8em` | Font size for footers |
-| `footer-weight` | `"regular"` | Font weight for footers |
-| `title-font` | `("Fira Sans",)` | Font family for title slide main title |
-| `title-size` | `1.3em` | Font size for title slide main title |
-| `title-weight` | `"medium"` | Font weight for title slide main title |
-| `subtitle-size` | `0.9em` | Font size for subtitle |
-| `subtitle-weight` | `"regular"` | Font weight for subtitle |
-| `author-size` | `0.8em` | Font size for author |
-| `author-weight` | `"regular"` | Font weight for author |
-| `date-size` | `0.8em` | Font size for date |
-| `date-weight` | `"regular"` | Font weight for date |
-| `institution-size` | `0.8em` | Font size for institution |
-| `institution-weight` | `"regular"` | Font weight for institution |
-| `extra-size` | `0.8em` | Font size for extra text on title slide |
-| `extra-weight` | `"regular"` | Font weight for extra text |
-| `logo-size` | `2em` | Size for logo on title slide |
-| `section-font` | `("Fira Sans",)` | Font family for section slides |
-| `section-size` | `1.5em` | Font size for section slides |
-| `section-weight` | `"regular"` | Font weight for section slides |
-| `focus-font` | `("Fira Sans",)` | Font family for focus slides |
-| `focus-size` | `1.5em` | Font size for focus slides |
-| `focus-weight` | `"regular"` | Font weight for focus slides |
+| `aspect-ratio` | `"16-9"` | Slide aspect ratio. Use `"16-9"` for widescreen or `"4-3"` for traditional 4:3 presentations. |
+| `align` | `horizon` | Vertical alignment of slide content. Use `horizon` for vertically centered content, `top` for top-aligned, or `bottom` for bottom-aligned. |
+| `footer-progress` | `true` | Whether to display a progress bar at the bottom of each slide. Set to `false` to hide it. |
 
-### Other Configuration Options
+### Header and Footer Content
 
-All standard Metropolis options are supported:
+These options let you customize what appears in the header and footer areas of each slide.
 
-- `aspect-ratio`: `"16-9"` or `"4-3"` (default: `"16-9"`)
-- `align`: Content alignment (default: `horizon`)
-- `header`: Custom header content or function
-- `header-right`: Right-side header content or function
-- `footer`: Custom footer content or function
-- `footer-right`: Right-side footer content or function
-- `footer-progress`: Show progress bar (default: `true`)
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `header` | *current heading* | Content displayed in the left side of the slide header. By default, shows the current slide title. Can be a string, content, or a function `self => content`. |
+| `header-right` | *logo* | Content displayed in the right side of the slide header. By default, shows the logo from `config-info`. Can be content or a function. |
+| `footer` | `none` | Content displayed in the left side of the footer. Set to `none` to leave empty, or provide custom content. |
+| `footer-right` | *slide counter* | Content displayed in the right side of the footer. By default shows "current / total" slide numbers. |
 
-Colors can be customized using `config-colors()`:
+---
 
+### Font Configuration
+
+Metropolyst exposes font properties for every text element. Each element can have up to three properties configured:
+- **font**: The font family (specified as a tuple, e.g., `("Fira Sans",)`)
+- **size**: The font size (e.g., `1.2em`, `20pt`)
+- **weight**: The font weight (e.g., `"regular"`, `"medium"`, `"bold"`)
+
+#### Slide Header and Footer
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `header-font` | `("Fira Sans",)` | Font family for slide headers (the title bar at the top of each slide). |
+| `header-size` | `1.2em` | Font size for slide headers. Larger values make the header text bigger. |
+| `header-weight` | `"medium"` | Font weight for slide headers. Options: `"thin"`, `"light"`, `"regular"`, `"medium"`, `"bold"`, `"black"`. |
+| `footer-font` | `("Fira Sans",)` | Font family for the slide footer text. |
+| `footer-size` | `0.8em` | Font size for footer text. Default is smaller than body text. |
+| `footer-weight` | `"regular"` | Font weight for footer text. |
+
+#### Title Slide Elements
+
+These control the typography on the title slide (created with `#title-slide()`).
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `title-font` | `("Fira Sans",)` | Font family for the presentation title on the title slide. |
+| `title-size` | `1.3em` | Font size for the presentation title. This is the largest text on the title slide. |
+| `title-weight` | `"medium"` | Font weight for the presentation title. |
+| `subtitle-size` | `0.9em` | Font size for the subtitle. Appears directly below the title. |
+| `subtitle-weight` | `"regular"` | Font weight for the subtitle. |
+| `author-size` | `0.8em` | Font size for the author name. |
+| `author-weight` | `"regular"` | Font weight for the author name. |
+| `date-size` | `0.8em` | Font size for the date. |
+| `date-weight` | `"regular"` | Font weight for the date. |
+| `institution-size` | `0.8em` | Font size for the institution/organization name. |
+| `institution-weight` | `"regular"` | Font weight for the institution name. |
+| `extra-size` | `0.8em` | Font size for extra text passed via `#title-slide(extra: [...])`. |
+| `extra-weight` | `"regular"` | Font weight for extra text. |
+| `logo-size` | `2em` | Size of the logo/emoji on the title slide. |
+
+#### Section and Focus Slides
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `section-font` | `("Fira Sans",)` | Font family for section divider slides (created automatically with `== Section`). |
+| `section-size` | `1.5em` | Font size for section slide headings. |
+| `section-weight` | `"regular"` | Font weight for section slide headings. |
+| `focus-font` | `("Fira Sans",)` | Font family for focus slides (created with `#focus-slide[...]`). |
+| `focus-size` | `1.5em` | Font size for focus slide content. |
+| `focus-weight` | `"regular"` | Font weight for focus slide content. |
+
+---
+
+### Color Configuration
+
+Metropolyst provides granular control over accent colors used throughout the presentation.
+
+#### Understanding the Color System
+
+The theme uses a **cascading accent color system**:
+1. Set `accent-color` to define the primary accent color for your presentation
+2. All other accent options (`hyperlink-color`, `progress-bar-color`, etc.) default to `auto`
+3. When set to `auto`, these options inherit from `accent-color`
+4. Override any specific option to use a different color independently
+
+This means you can:
+- Set just `accent-color` to change all accents at once
+- Set individual options to create a multi-color accent scheme
+
+#### Accent Color Options
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `accent-color` | `rgb("#eb811b")` (orange) | The primary accent color. When other accent options are `auto`, they use this color. This orange is the classic Metropolis accent. |
+| `hyperlink-color` | `auto` | Color for hyperlinks (created with `#link(...)`). When `auto`, uses `accent-color`. Set to a specific color like `rgb("#0077b6")` for blue links. |
+| `line-separator-color` | `auto` | Color for the horizontal line on the title slide that separates the title from author information. When `auto`, uses `accent-color`. |
+| `progress-bar-color` | `auto` | Color for the foreground of progress bars (in footer and on section slides). When `auto`, uses `accent-color`. |
+| `progress-bar-background` | `rgb("#d6c6b7")` (beige) | Background color for progress bars. This is the "unfilled" portion of the progress bar. |
+| `alert-color` | `auto` | Color for emphasized text created with `#alert[...]`. When `auto`, uses `accent-color`. |
+
+#### Color Examples
+
+**Single accent color (all elements use the same color):**
 ```typst
 #show: metropolyst-theme.with(
-  config-colors(
-    primary: rgb("#eb811b"),
-    primary-light: rgb("#d6c6b7"),
-    secondary: rgb("#23373b"),
-    neutral-lightest: rgb("#fafafa"),
-    neutral-dark: rgb("#23373b"),
-    neutral-darkest: rgb("#23373b"),
-  ),
+  accent-color: rgb("#0077b6"),  // Blue accent for everything
 )
 ```
 
-## Example: Custom Configuration
-
+**Multi-color accent scheme:**
 ```typst
 #show: metropolyst-theme.with(
-  aspect-ratio: "16-9",
-  config-info(
-    title: [Custom Theme],
-    subtitle: [With Bold Headers],
-    author: [Your Name],
-  ),
-  // Customize fonts
-  header-size: 1.5em,
-  header-weight: "bold",
-  footer-size: 1.0em,
-  footer-weight: "medium",
-  title-size: 2.0em,
-  title-weight: "bold",
+  accent-color: rgb("#e63946"),           // Red for general accents
+  hyperlink-color: rgb("#0077b6"),        // Blue for links
+  progress-bar-color: rgb("#2a9d8f"),     // Teal for progress bars
+  alert-color: rgb("#f4a261"),            // Orange for alerts
 )
 ```
+
+---
 
 ## Slide Types
 
-Metropolyst provides the same slide types as Metropolis:
+Metropolyst provides four slide types:
 
-- `#title-slide()` - Title slide with presentation metadata
-- `#slide[...]` - Standard content slide
-- `#focus-slide[...]` - High-contrast attention slide
-- `#new-section-slide` - Section divider (automatic with headings)
+### Title Slide
 
-## Verification
+```typst
+#title-slide()
+// or with extra information:
+#title-slide(extra: [Conference Name 2025])
+```
 
-The theme has been verified with:
+Creates the opening slide with title, subtitle, author, date, institution, and optional logo. Configure the content using `config-info()`.
 
-- ✅ `pdffonts` - Confirms correct font families and weights are embedded
-- ✅ `mutool info` - Validates PDF structure and metadata
-- ✅ Side-by-side comparisons - Default vs custom configurations show visible differences
+### Content Slide
 
-See `default-config.pdf` vs `custom-config.pdf` for visual proof that configuration options work as expected.
+```typst
+#slide[
+  = Slide Title
+  Your content here...
+]
+```
+
+Standard slide with header showing the slide title, footer with progress bar, and your content.
+
+### Section Slide
+
+```typst
+== Section Name
+```
+
+Automatically creates a section divider slide when you use a level-2 heading. Shows the section name with a progress bar.
+
+### Focus Slide
+
+```typst
+#focus-slide[
+  *Key Message*
+]
+```
+
+High-contrast slide with dark background and light text. Use for important messages or transitions.
+
+---
+
+## Presentation Info
+
+Set presentation metadata using `config-info()`:
+
+```typst
+#show: metropolyst-theme.with(
+  config-info(
+    title: [Presentation Title],
+    subtitle: [Optional Subtitle],
+    author: [Author Name],
+    date: datetime.today(),
+    institution: [Organization],
+    logo: emoji.rocket,  // or an image
+  ),
+)
+```
+
+---
 
 ## Font Installation
 
-For best results, install Fira Sans fonts:
+For best results, install the Fira Sans font family:
 
 **Linux:**
 ```bash
-# Download Fira Sans
+# Ubuntu/Debian
+sudo apt install fonts-fira-sans
+
+# Or download from GitHub
 wget https://github.com/mozilla/Fira/archive/refs/heads/master.zip
 unzip master.zip
 sudo cp Fira-master/ttf/*.ttf /usr/share/fonts/truetype/
@@ -170,23 +262,21 @@ brew install --cask font-fira-sans
 **Windows:**
 Download from [Google Fonts](https://fonts.google.com/specimen/Fira+Sans) and install.
 
+---
+
 ## Examples
 
-- `demo.typ` - Comprehensive feature demonstration
-- `config-test.typ` - Configuration options testing
-- `default-config.typ` - Default settings reference
-- `custom-config.typ` - Custom settings example
+- `example-default.typ` - Minimal example using default settings
+- `example-custom.typ` - Comprehensive example demonstrating all configuration options
+
+---
 
 ## Credits
 
 - Inspired by [Matthias Vogelgesang's Beamer Metropolis theme](https://github.com/matze/mtheme)
 - Based on the [Touying Metropolis theme](https://touying-typ.github.io/docs/themes/metropolis/) by @Enivex
-- Built for [Touying](https://github.com/touying-typ/touying) presentation framework
+- Built for the [Touying](https://github.com/touying-typ/touying) presentation framework
 
 ## License
 
 This theme follows the same license as the original Touying Metropolis theme.
-
-## Contributing
-
-Issues and pull requests are welcome! Please ensure any changes maintain backward compatibility with the original Metropolis theme structure.
