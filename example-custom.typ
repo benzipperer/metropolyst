@@ -22,18 +22,18 @@
   // ============================================================
   // FONT CONFIGURATION - Header & Footer
   // ============================================================
-  header-font: ("Fira Sans",),     // Font family for slide headers
+  header-font: ("Libertinus Serif",),     // Font family for slide headers
   header-size: 1.4em,              // Larger than default 1.2em
   header-weight: "bold",           // Bolder than default "medium"
 
-  footer-font: ("Fira Sans",),     // Font family for footer
+  footer-font: ("Libertinus Serif",),     // Font family for footer
   footer-size: 0.9em,              // Larger than default 0.8em
-  footer-weight: "medium",         // Bolder than default "regular"
+  footer-weight: "semibold",       // Bolder than default "regular"
 
   // ============================================================
   // FONT CONFIGURATION - Title Slide
   // ============================================================
-  title-font: ("Fira Sans",),      // Font family for presentation title
+  title-font: ("Libertinus Serif",),      // Font family for presentation title
   title-size: 1.8em,               // Larger than default 1.3em
   title-weight: "bold",            // Bolder than default "medium"
 
@@ -57,11 +57,11 @@
   // ============================================================
   // FONT CONFIGURATION - Section & Focus Slides
   // ============================================================
-  section-font: ("Fira Sans",),    // Font family for section slides
+  section-font: ("Libertinus Serif",),    // Font family for section slides
   section-size: 1.8em,             // Larger than default 1.5em
   section-weight: "bold",          // Bolder than default "regular"
 
-  focus-font: ("Fira Sans",),      // Font family for focus slides
+  focus-font: ("Libertinus Serif",),      // Font family for focus slides
   focus-size: 2.0em,               // Larger than default 1.5em
   focus-weight: "bold",            // Bolder than default "regular"
 
@@ -91,8 +91,8 @@
   ),
 )
 
-#set text(font: "Fira Sans", weight: "light", size: 20pt)
-#set strong(delta: 100)
+#set text(font: "Libertinus Serif", weight: "regular", size: 20pt)
+#set strong(delta: 400)
 #set par(justify: true)
 
 // ============================================================
