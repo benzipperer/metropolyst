@@ -64,10 +64,8 @@ After any modification to:
 
 Always:
 1. Recompile both PDFs
-2. Verify fonts with `pdffonts` or `mutool`
+2. Verify typography with `pdffonts` or `mutool`
 3. Visually inspect PDFs for expected appearance
-4. Check that default example uses Fira Sans
-5. Check that custom example uses configured alternative font
 
 ## Common Tasks
 
@@ -117,8 +115,6 @@ fc-cache -fv
 
 Before committing changes:
 - [ ] Both example PDFs compile without errors
-- [ ] `pdffonts example-default.pdf` shows only Fira Sans variants
-- [ ] `pdffonts example-custom.pdf` shows custom font (Libertinus Serif)
-- [ ] Visual inspection confirms expected typography
+- [ ] Visual inspection using pdffonts, mutools, pdftohtml, etc. confirms expected typography
 - [ ] README.md reflects any new configuration options
 - [ ] Examples demonstrate new features (if applicable)
