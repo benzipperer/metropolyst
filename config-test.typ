@@ -7,7 +7,7 @@
   aspect-ratio: "16-9",
   config-info(
     title: [Configuration Test],
-    subtitle: [Testing Custom Font Settings],
+    subtitle: [Testing Custom Font and Accent Color Settings],
     author: [Test Author],
     date: datetime.today(),
     institution: [Test Institution],
@@ -25,6 +25,13 @@
   section-weight: "bold",     // Default: "regular"
   focus-size: 2.0em,          // Default: 1.5em
   focus-weight: "bold",       // Default: "regular"
+  // Custom accent color configuration
+  accent-color: rgb("#e63946"),           // Red accent instead of orange
+  hyperlink-color: rgb("#0077b6"),        // Blue hyperlinks
+  line-separator-color: rgb("#2a9d8f"),   // Teal line separator
+  progress-bar-color: rgb("#9d4edd"),     // Purple progress bar
+  progress-bar-background: rgb("#e0aaff"), // Light purple progress bar background
+  alert-color: rgb("#f4a261"),            // Orange alert text
 )
 
 #set text(font: "Fira Sans", weight: "light", size: 20pt)
@@ -68,6 +75,45 @@
 
 #focus-slide[
   This focus slide should be *2.0em* and *bold*
+]
+
+== Accent Color Tests
+
+#slide[
+  = Accent Color Configuration
+
+  This presentation tests custom accent colors:
+
+  #table(
+    columns: 2,
+    [*Element*], [*Custom Color*],
+    [Accent (base)], [Red #box(fill: rgb("#e63946"), width: 1em, height: 1em)],
+    [Hyperlinks], [Blue #box(fill: rgb("#0077b6"), width: 1em, height: 1em)],
+    [Line Separator], [Teal #box(fill: rgb("#2a9d8f"), width: 1em, height: 1em)],
+    [Progress Bar], [Purple #box(fill: rgb("#9d4edd"), width: 1em, height: 1em)],
+    [Progress Background], [Light Purple #box(fill: rgb("#e0aaff"), width: 1em, height: 1em)],
+    [Alert Text], [Orange #box(fill: rgb("#f4a261"), width: 1em, height: 1em)],
+  )
+]
+
+#slide[
+  = Hyperlink Test
+
+  Here is a #link("https://typst.app")[hyperlink to Typst] that should appear in blue.
+
+  Another link: #link("https://github.com")[GitHub]
+
+  The hyperlinks use a different color than the main accent!
+]
+
+#slide[
+  = Alert Text Test
+
+  Here is some #alert[alert text] that should appear in orange.
+
+  The alert color is independent of the accent color!
+
+  You can also use *bold* and _italic_ text normally.
 ]
 
 #slide[

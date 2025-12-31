@@ -85,8 +85,8 @@
     if self.store.footer-progress {
       place(bottom, components.progress-bar(
         height: 2pt,
-        self.colors.primary,
-        self.colors.primary-light,
+        self.store.progress-bar-color,
+        self.store.progress-bar-background,
       ))
     }
   }
@@ -176,7 +176,7 @@
             utils.call-or-display(self, info.logo),
           ),
         )
-        line(length: 100%, stroke: .05em + self.colors.primary)
+        line(length: 100%, stroke: .05em + self.store.line-separator-color)
         set text(
           size: self.store.author-size,
           weight: self.store.author-weight,
@@ -260,8 +260,8 @@
         spacing: 0pt,
         components.progress-bar(
           height: 2pt,
-          self.colors.primary,
-          self.colors.primary-light,
+          self.store.progress-bar-color,
+          self.store.progress-bar-background,
         ),
       ),
     )
@@ -309,9 +309,23 @@
 /// ```typst
 /// #show: metropolyst-theme.with(
 ///   aspect-ratio: "16-9",
-///   config-colors(primary: blue),
 ///   header-size: 1.5em,
 ///   header-weight: "bold",
+///   // Change the accent color for the whole theme
+///   accent-color: rgb("#0077b6"),
+/// )
+/// ```
+///
+/// Example with individual accent color overrides:
+///
+/// ```typst
+/// #show: metropolyst-theme.with(
+///   aspect-ratio: "16-9",
+///   // Set main accent color (affects all accent elements by default)
+///   accent-color: rgb("#e63946"),
+///   // Override specific accent color uses
+///   hyperlink-color: rgb("#0077b6"),  // Blue links
+///   line-separator-color: rgb("#2a9d8f"),  // Teal separator
 /// )
 /// ```
 ///
@@ -324,16 +338,16 @@
 /// #set par(justify: true)
 /// ```
 ///
-/// The default colors:
+/// The default colors (can be overridden with config-colors):
 ///
 /// ```typ
 /// config-colors(
-/// primary: rgb("#eb811b"),
-/// primary-light: rgb("#d6c6b7"),
-/// secondary: rgb("#23373b"),
-/// neutral-lightest: rgb("#fafafa"),
-/// neutral-dark: rgb("#23373b"),
-/// neutral-darkest: rgb("#23373b"),
+///   primary: rgb("#eb811b"),       // Set by accent-color
+///   primary-light: rgb("#d6c6b7"), // Set by progress-bar-background
+///   secondary: rgb("#23373b"),
+///   neutral-lightest: rgb("#fafafa"),
+///   neutral-dark: rgb("#23373b"),
+///   neutral-darkest: rgb("#23373b"),
 /// )
 /// ```
 ///
@@ -349,6 +363,15 @@
 /// - logo-size: Controls logo size on title slide
 /// - section-font, section-size, section-weight: Controls section slide text
 /// - focus-font, focus-size, focus-weight: Controls focus slide text
+///
+/// Accent color configuration:
+/// - accent-color: Main accent color used throughout the theme (default: orange #eb811b)
+///   This serves as the default for all other accent color options below
+/// - hyperlink-color: Color for hyperlinks (defaults to accent-color)
+/// - line-separator-color: Color for line separators like on the title slide (defaults to accent-color)
+/// - progress-bar-color: Color for progress bars in footer and section slides (defaults to accent-color)
+/// - progress-bar-background: Background color for progress bars (default: #d6c6b7)
+/// - alert-color: Color for alert/emphasized text via the alert function (defaults to accent-color)
 ///
 /// - aspect-ratio (string): The aspect ratio of the slides. Default is `16-9`.
 ///
@@ -403,10 +426,25 @@
   focus-font: ("Fira Sans",),
   focus-size: 1.5em,
   focus-weight: "regular",
+  // Accent color configuration
+  accent-color: rgb("#eb811b"),
+  hyperlink-color: auto,
+  line-separator-color: auto,
+  progress-bar-color: auto,
+  progress-bar-background: rgb("#d6c6b7"),
+  alert-color: auto,
   ..args,
   body,
 ) = {
+  // Resolve auto values for accent colors
+  let resolved-hyperlink-color = if hyperlink-color == auto { accent-color } else { hyperlink-color }
+  let resolved-line-separator-color = if line-separator-color == auto { accent-color } else { line-separator-color }
+  let resolved-progress-bar-color = if progress-bar-color == auto { accent-color } else { progress-bar-color }
+  let resolved-alert-color = if alert-color == auto { accent-color } else { alert-color }
   set text(size: 20pt, font: "Fira Sans")
+
+  // Style hyperlinks with configurable color
+  show link: it => text(fill: resolved-hyperlink-color, it)
 
   show: touying-slides.with(
     config-page(
@@ -420,11 +458,11 @@
       new-section-slide-fn: new-section-slide,
     ),
     config-methods(
-      alert: utils.alert-with-primary-color,
+      alert: (self: none, it) => text(fill: self.store.alert-color, it),
     ),
     config-colors(
-      primary: rgb("#eb811b"),
-      primary-light: rgb("#d6c6b7"),
+      primary: accent-color,
+      primary-light: progress-bar-background,
       secondary: rgb("#23373b"),
       neutral-lightest: rgb("#fafafa"),
       neutral-dark: rgb("#23373b"),
@@ -438,6 +476,12 @@
       footer: footer,
       footer-right: footer-right,
       footer-progress: footer-progress,
+      // Accent color configuration
+      hyperlink-color: resolved-hyperlink-color,
+      line-separator-color: resolved-line-separator-color,
+      progress-bar-color: resolved-progress-bar-color,
+      progress-bar-background: progress-bar-background,
+      alert-color: resolved-alert-color,
       // Store font configuration
       header-font: header-font,
       header-size: header-size,
