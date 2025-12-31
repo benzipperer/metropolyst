@@ -86,10 +86,10 @@ Metropolyst exposes font properties for every text element. Each element can hav
 | Parameter | Default | Description |
 |-----------|---------|-------------|
 | `header-font` | `("Fira Sans",)` | Font family for slide headers (the title bar at the top of each slide). |
-| `header-size` | `1.2em` | Font size for slide headers. Larger values make the header text bigger. |
-| `header-weight` | `"medium"` | Font weight for slide headers. Options: `"thin"`, `"light"`, `"regular"`, `"medium"`, `"bold"`, `"black"`. |
+| `header-size` | `1.0em` | Font size for slide headers (matches original Metropolis `\large`). |
+| `header-weight` | `"regular"` | Font weight for slide headers (matches original Metropolis). Options: `"thin"`, `"light"`, `"regular"`, `"medium"`, `"bold"`, `"black"`. |
 | `footer-font` | `("Fira Sans",)` | Font family for the slide footer text. |
-| `footer-size` | `0.8em` | Font size for footer text. Default is smaller than body text. |
+| `footer-size` | `0.6em` | Font size for footer text (matches original Metropolis `\scriptsize`). |
 | `footer-weight` | `"regular"` | Font weight for footer text. |
 
 #### Title Slide Elements
@@ -99,9 +99,9 @@ These control the typography on the title slide (created with `#title-slide()`).
 | Parameter | Default | Description |
 |-----------|---------|-------------|
 | `title-font` | `("Fira Sans",)` | Font family for the presentation title on the title slide. |
-| `title-size` | `1.3em` | Font size for the presentation title. This is the largest text on the title slide. |
-| `title-weight` | `"medium"` | Font weight for the presentation title. |
-| `subtitle-size` | `0.9em` | Font size for the subtitle. Appears directly below the title. |
+| `title-size` | `1.4em` | Font size for the presentation title (matches original Metropolis `\Large`). |
+| `title-weight` | `"regular"` | Font weight for the presentation title (matches original Metropolis). |
+| `subtitle-size` | `1.0em` | Font size for the subtitle (matches original Metropolis `\large`). |
 | `subtitle-weight` | `"regular"` | Font weight for the subtitle. |
 | `author-size` | `0.8em` | Font size for the author name. |
 | `author-weight` | `"regular"` | Font weight for the author name. |
@@ -118,10 +118,10 @@ These control the typography on the title slide (created with `#title-slide()`).
 | Parameter | Default | Description |
 |-----------|---------|-------------|
 | `section-font` | `("Fira Sans",)` | Font family for section divider slides (created automatically with `== Section`). |
-| `section-size` | `1.5em` | Font size for section slide headings. |
+| `section-size` | `1.4em` | Font size for section slide headings (matches original Metropolis `\Large`). |
 | `section-weight` | `"regular"` | Font weight for section slide headings. |
 | `focus-font` | `("Fira Sans",)` | Font family for focus slides (created with `#focus-slide[...]`). |
-| `focus-size` | `1.5em` | Font size for focus slide content. |
+| `focus-size` | `1.4em` | Font size for focus slide content (matches original Metropolis `\Large`). |
 | `focus-weight` | `"regular"` | Font weight for focus slide content. |
 
 ---

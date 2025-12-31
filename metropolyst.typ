@@ -43,7 +43,7 @@
   }
   let header(self) = {
     set std.align(top)
-    show: components.cell.with(fill: self.colors.secondary, inset: 1em)
+    show: components.cell.with(fill: self.colors.secondary, inset: (top: 1.2em, bottom: 1.2em, x: 1em))
     set std.align(horizon)
     set text(
       fill: self.colors.neutral-lightest,
@@ -101,6 +101,8 @@
   let new-setting = body => {
     show: std.align.with(self.store.align)
     set text(fill: self.colors.neutral-darkest)
+    // Hide slide title headings in body (they appear in the header)
+    show heading.where(level: 1): none
     show: setting
     body
   }
@@ -163,7 +165,8 @@
               info.title,
             )
             if info.subtitle != none {
-              linebreak()
+              // Tight spacing between title and subtitle (like original Metropolis)
+              v(-0.4em)
               text(
                 size: self.store.subtitle-size,
                 weight: self.store.subtitle-weight,
@@ -176,17 +179,21 @@
             utils.call-or-display(self, info.logo),
           ),
         )
-        line(length: 100%, stroke: .05em + self.store.line-separator-color)
+        // Spacing before separator line
+        v(0.8em)
+        line(length: 100%, stroke: 0.4pt + self.store.line-separator-color)
         set text(
           size: self.store.author-size,
           weight: self.store.author-weight,
         )
+        // Spacing matched to original Metropolis
         if info.author != none {
-          block(spacing: 1em, info.author)
+          block(above: 2.5em, below: 0em, info.author)
         }
         if info.date != none {
           block(
-            spacing: 1em,
+            above: 1.0em,
+            below: 0em,
             text(
               size: self.store.date-size,
               weight: self.store.date-weight,
@@ -196,7 +203,8 @@
         }
         if info.institution != none {
           block(
-            spacing: 1em,
+            above: 1.4em,
+            below: 0em,
             text(
               size: self.store.institution-size,
               weight: self.store.institution-weight,
@@ -206,7 +214,8 @@
         }
         if extra != none {
           block(
-            spacing: 1em,
+            above: 1.0em,
+            below: 0em,
             text(
               size: self.store.extra-size,
               weight: self.store.extra-weight,
@@ -399,32 +408,38 @@
     + " / "
     + utils.last-slide-number,
   footer-progress: true,
-  // Font configuration options - these are the key differences from Metropolis
+  // Font configuration options - matched to original Metropolis beamer theme
+  // Frame titles use \large size (1.2x \normalsize), regular weight
   header-font: ("Fira Sans",),
   header-size: 1.2em,
-  header-weight: "medium",
+  header-weight: "regular",
+  // Footer uses \scriptsize
   footer-font: ("Fira Sans",),
-  footer-size: 0.8em,
+  footer-size: 0.6em,
   footer-weight: "regular",
+  // Title slide uses \Large for title, \large for subtitle
   title-font: ("Fira Sans",),
-  title-size: 1.3em,
-  title-weight: "medium",
-  subtitle-size: 0.9em,
-  subtitle-weight: "regular",
+  title-size: 1.4em,
+  title-weight: "regular",
+  subtitle-size: 1.0em,
+  subtitle-weight: "light",
+  // Author/date/institution use \small with light weight
   author-size: 0.8em,
-  author-weight: "regular",
+  author-weight: "light",
   date-size: 0.8em,
-  date-weight: "regular",
+  date-weight: "light",
   institution-size: 0.8em,
-  institution-weight: "regular",
+  institution-weight: "light",
   extra-size: 0.8em,
-  extra-weight: "regular",
+  extra-weight: "light",
   logo-size: 2em,
+  // Section pages use \Large
   section-font: ("Fira Sans",),
-  section-size: 1.5em,
+  section-size: 1.4em,
   section-weight: "regular",
+  // Focus/standout slides use \Large
   focus-font: ("Fira Sans",),
-  focus-size: 1.5em,
+  focus-size: 1.4em,
   focus-weight: "regular",
   // Accent color configuration
   accent-color: rgb("#eb811b"),
@@ -451,7 +466,7 @@
       paper: "presentation-" + aspect-ratio,
       header-ascent: 30%,
       footer-descent: 30%,
-      margin: (top: 3em, bottom: 1.5em, x: 2em),
+      margin: (top: 3.8em, bottom: 1.5em, x: 2em),
     ),
     config-common(
       slide-fn: slide,

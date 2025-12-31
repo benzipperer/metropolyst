@@ -38,9 +38,9 @@
 #slide[
   = What You See
 
-  - *Header:* 1.2em, medium weight
-  - *Footer:* 0.8em, regular weight, with progress bar
-  - *Title slide:* 1.3em title, 0.9em subtitle
+  - *Header:* 1.2em, regular weight (matches original Metropolis)
+  - *Footer:* 0.6em, regular weight, with progress bar
+  - *Title slide:* 1.4em title, 1.0em subtitle
   - *This text:* Your body content appears here
 ]
 
