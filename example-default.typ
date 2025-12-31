@@ -31,7 +31,7 @@
 
   - *Aspect ratio:* 16:9
   - *Fonts:* Fira Sans throughout
-  - *Accent color:* Orange (#eb811b)
+  - *Accent color:* Orange (\#eb811b)
   - *Progress bar:* Enabled
 ]
 

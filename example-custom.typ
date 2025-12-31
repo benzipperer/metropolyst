@@ -196,7 +196,7 @@
   + Other options default to `auto` (inherit from accent-color)
   + Override specific options for different colors
 
-  This presentation uses *blue* as the base accent (#2563eb).
+  This presentation uses *blue* as the base accent (\#2563eb).
 ]
 
 #slide[
