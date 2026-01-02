@@ -13,6 +13,7 @@
     header-background-color: rgb("#063957"),
     progress-bar-background: auto,
     footer-right: none,
+    font: ("Roboto",),
   ),
 )
 
