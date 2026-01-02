@@ -28,7 +28,7 @@ Brands are preset configurations that apply organizational styling with a single
 
 | Brand | Description |
 |-------|-------------|
-| `EPI` | Economic Policy Institute branding (dark blue accent `#063957`, no page counter) |
+| `EPI` | Economic Policy Institute branding (red accent `#C01F41`, dark blue header `#063957`, no page counter) |
 
 ### Combining Brands with Overrides
 

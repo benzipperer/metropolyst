@@ -25,8 +25,9 @@
 
 The EPI brand applies these settings automatically:
 
-- *Accent color:* EPI dark blue (\#063957)
-- *Header background:* Default dark teal (\#23373b)
+- *Accent color:* EPI red (\#C01F41)
+- *Header background:* EPI dark blue (\#063957)
+- *Progress bar background:* Auto (derived from accent color)
 - *Page counter:* Disabled
 
 == Combining with Overrides
