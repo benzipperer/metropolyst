@@ -5,6 +5,9 @@
 
 // Basic theme setup with just the required information
 #show: metropolyst-theme.with(
+  // Customize fonts and colors (showing defaults):
+  // font: ("Fira Sans",),  // All elements use this font
+  // accent-color: rgb("#eb811b"),  // Orange accent throughout
   config-info(
     title: [Default Configuration],
     subtitle: [Using All Default Settings],
@@ -14,35 +17,27 @@
   ),
 )
 
-// Recommended text settings for body content
-#set text(font: "Fira Sans", weight: "light", size: 20pt)
-#set strong(delta: 100)
-
 // Title slide
 #title-slide()
 
-// Section divider (created automatically from level-2 heading)
-== Introduction
+// Section divider (created automatically from level-1 heading)
+= Introduction
 
-#slide[
-  = Default Theme Settings
+== Default Theme Settings
 
-  This presentation uses all default Metropolyst settings:
+This presentation uses all default Metropolyst settings:
 
-  - *Aspect ratio:* 16:9
-  - *Fonts:* Fira Sans throughout
-  - *Accent color:* Orange (\#eb811b)
-  - *Progress bar:* Enabled
-]
+- *Aspect ratio:* 16:9
+- *Fonts:* Fira Sans throughout
+- *Accent color:* Orange (\#eb811b)
+- *Progress bar:* Disabled
 
-#slide[
-  = What You See
+== What You See
 
-  - *Header:* 1.2em, regular weight (matches original Metropolis)
-  - *Footer:* 0.6em, regular weight, with progress bar
-  - *Title slide:* 1.4em title, 1.0em subtitle
-  - *This text:* Your body content appears here
-]
+- *Header:* 1.2em, regular weight (matches original Metropolis)
+- *Footer:* 0.6em, regular weight
+- *Title slide:* 1.4em title, 1.0em subtitle
+- *This text:* Your body content appears here
 
 // Focus slide for emphasis
 #focus-slide[

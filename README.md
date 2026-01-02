@@ -10,8 +10,73 @@ The original Metropolis theme has hard-coded font properties (sizes, weights, an
 
 - **Fully Configurable Typography**: Control font face, size, and weight for every text element
 - **Granular Accent Colors**: Customize colors independently for hyperlinks, progress bars, alerts, and more
+- **Brand Presets**: Apply organizational branding with a single setting
 - **Fira Sans Default**: Uses Fira Sans as the default font family for a clean, modern look
 - **Drop-in Replacement**: Compatible with Metropolis theme structure and conventions
+
+## Brands
+
+Brands are preset configurations that apply organizational styling with a single setting. Use the spread operator (`..`) to apply a brand:
+
+```typst
+#import "metropolyst.typ": metropolyst-theme, brands
+
+#show: metropolyst-theme.with(..brands.EPI)
+```
+
+### Built-in Brands
+
+| Brand | Description |
+|-------|-------------|
+| `EPI` | Economic Policy Institute branding (dark blue accent `#063957`, no page counter) |
+
+### Combining Brands with Overrides
+
+You can apply a brand and then override specific settings:
+
+```typst
+#show: metropolyst-theme.with(
+  ..brands.EPI,
+  footer-progress: true,  // Add progress bar to EPI brand
+)
+```
+
+### Defining Your Own Brands
+
+Create custom brands as dictionaries in your own file:
+
+```typst
+// my-brands.typ
+#let brands = (
+  "my-company": (
+    accent-color: rgb("#ff0000"),
+    header-background-color: rgb("#333333"),
+    font: ("Roboto",),
+  ),
+)
+```
+
+Then import and use:
+
+```typst
+#import "metropolyst.typ": metropolyst-theme
+#import "my-brands.typ": brands
+
+#show: metropolyst-theme.with(..brands.my-company)
+```
+
+Or define inline:
+
+```typst
+#let my-brand = (
+  accent-color: rgb("#0066cc"),
+  footer-right: none,
+)
+
+#show: metropolyst-theme.with(..my-brand)
+```
+
+---
 
 ## Installation
 
@@ -20,7 +85,7 @@ Copy `metropolyst.typ` to your project directory or install it as a local Typst 
 ## Quick Start
 
 ```typst
-#import "metropolyst.typ": *
+#import "metropolyst.typ": metropolyst-theme, brands
 
 #show: metropolyst-theme.with(
   config-info(
@@ -59,7 +124,7 @@ These options control the overall slide layout and structure.
 |-----------|---------|-------------|
 | `aspect-ratio` | `"16-9"` | Slide aspect ratio. Use `"16-9"` for widescreen or `"4-3"` for traditional 4:3 presentations. |
 | `align` | `horizon` | Vertical alignment of slide content. Use `horizon` for vertically centered content, `top` for top-aligned, or `bottom` for bottom-aligned. |
-| `footer-progress` | `true` | Whether to display a progress bar at the bottom of each slide. Set to `false` to hide it. |
+| `footer-progress` | `false` | Whether to display a progress bar at the bottom of each slide. Set to `true` to show it. |
 
 ### Header and Footer Content
 
@@ -81,14 +146,50 @@ Metropolyst exposes font properties for every text element. Each element can hav
 - **size**: The font size (e.g., `1.2em`, `20pt`)
 - **weight**: The font weight (e.g., `"regular"`, `"medium"`, `"bold"`)
 
+#### Understanding the Font System
+
+The theme uses a **cascading font system** similar to the color system:
+1. Set `font` to define the base font for your entire presentation
+2. All element-specific font options (`header-font`, `footer-font`, etc.) default to `auto`
+3. When set to `auto`, these options inherit from `font`
+4. Override any specific option to use a different font for that element
+
+This means you can:
+- Set just `font` to change all fonts at once (e.g., `font: ("Roboto",)`)
+- Set individual `*-font` options to mix fonts for specific elements
+
+#### Font Examples
+
+**Single font for everything:**
+```typst
+#show: metropolyst-theme.with(
+  font: ("Roboto",),  // All elements use Roboto
+)
+```
+
+**Mixed fonts:**
+```typst
+#show: metropolyst-theme.with(
+  font: ("Libertinus Serif",),       // Base font for most elements
+  header-font: ("Fira Sans",),       // Sans-serif for headers only
+  focus-font: ("Fira Sans",),        // Sans-serif for focus slides
+)
+```
+
+#### Base Font Option
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `font` | `("Fira Sans",)` | The base font family for all elements. All `*-font` options inherit from this when set to `auto`. |
+
 #### Slide Header and Footer
 
 | Parameter | Default | Description |
 |-----------|---------|-------------|
-| `header-font` | `("Fira Sans",)` | Font family for slide headers (the title bar at the top of each slide). |
-| `header-size` | `1.0em` | Font size for slide headers (matches original Metropolis `\large`). |
+| `header-font` | `auto` | Font family for slide headers. When `auto`, uses `font`. |
+| `header-size` | `1.2em` | Font size for slide headers (matches original Metropolis `\large`). |
 | `header-weight` | `"regular"` | Font weight for slide headers (matches original Metropolis). Options: `"thin"`, `"light"`, `"regular"`, `"medium"`, `"bold"`, `"black"`. |
-| `footer-font` | `("Fira Sans",)` | Font family for the slide footer text. |
+| `footer-font` | `auto` | Font family for the slide footer text. When `auto`, uses `font`. |
 | `footer-size` | `0.6em` | Font size for footer text (matches original Metropolis `\scriptsize`). |
 | `footer-weight` | `"regular"` | Font weight for footer text. |
 
@@ -98,29 +199,29 @@ These control the typography on the title slide (created with `#title-slide()`).
 
 | Parameter | Default | Description |
 |-----------|---------|-------------|
-| `title-font` | `("Fira Sans",)` | Font family for the presentation title on the title slide. |
+| `title-font` | `auto` | Font family for the presentation title. When `auto`, uses `font`. |
 | `title-size` | `1.4em` | Font size for the presentation title (matches original Metropolis `\Large`). |
 | `title-weight` | `"regular"` | Font weight for the presentation title (matches original Metropolis). |
 | `subtitle-size` | `1.0em` | Font size for the subtitle (matches original Metropolis `\large`). |
-| `subtitle-weight` | `"regular"` | Font weight for the subtitle. |
+| `subtitle-weight` | `"light"` | Font weight for the subtitle. |
 | `author-size` | `0.8em` | Font size for the author name. |
-| `author-weight` | `"regular"` | Font weight for the author name. |
+| `author-weight` | `"light"` | Font weight for the author name. |
 | `date-size` | `0.8em` | Font size for the date. |
-| `date-weight` | `"regular"` | Font weight for the date. |
+| `date-weight` | `"light"` | Font weight for the date. |
 | `institution-size` | `0.8em` | Font size for the institution/organization name. |
-| `institution-weight` | `"regular"` | Font weight for the institution name. |
+| `institution-weight` | `"light"` | Font weight for the institution name. |
 | `extra-size` | `0.8em` | Font size for extra text passed via `#title-slide(extra: [...])`. |
-| `extra-weight` | `"regular"` | Font weight for extra text. |
+| `extra-weight` | `"light"` | Font weight for extra text. |
 | `logo-size` | `2em` | Size of the logo/emoji on the title slide. |
 
 #### Section and Focus Slides
 
 | Parameter | Default | Description |
 |-----------|---------|-------------|
-| `section-font` | `("Fira Sans",)` | Font family for section divider slides (created automatically with `== Section`). |
+| `section-font` | `auto` | Font family for section divider slides. When `auto`, uses `font`. |
 | `section-size` | `1.4em` | Font size for section slide headings (matches original Metropolis `\Large`). |
 | `section-weight` | `"regular"` | Font weight for section slide headings. |
-| `focus-font` | `("Fira Sans",)` | Font family for focus slides (created with `#focus-slide[...]`). |
+| `focus-font` | `auto` | Font family for focus slides. When `auto`, uses `font`. |
 | `focus-size` | `1.4em` | Font size for focus slide content (matches original Metropolis `\Large`). |
 | `focus-weight` | `"regular"` | Font weight for focus slide content. |
 
@@ -128,47 +229,60 @@ These control the typography on the title slide (created with `#title-slide()`).
 
 ### Color Configuration
 
-Metropolyst provides granular control over accent colors used throughout the presentation.
+Metropolyst provides granular control over colors used throughout the presentation.
 
 #### Understanding the Color System
 
-The theme uses a **cascading accent color system**:
-1. Set `accent-color` to define the primary accent color for your presentation
-2. All other accent options (`hyperlink-color`, `progress-bar-color`, etc.) default to `auto`
-3. When set to `auto`, these options inherit from `accent-color`
-4. Override any specific option to use a different color independently
+The theme has two types of configurable colors:
+
+**Accent colors** — inherit from `accent-color` when set to `auto`:
+- `hyperlink-color` — color for links
+- `line-separator-color` — title slide separator line
+- `progress-bar-color` — progress bar foreground
+
+**Background colors** — have independent defaults:
+- `header-background-color` — defaults to dark teal (`#23373b`), not `accent-color`
+- `focus-background-color` — defaults to `header-background-color`
 
 This means you can:
-- Set just `accent-color` to change all accents at once
-- Set individual options to create a multi-color accent scheme
+- Set just `accent-color` to change links, separators, and progress bars at once
+- Background colors must be set explicitly if you want them to match
 
-#### Accent Color Options
+#### Color Options
 
 | Parameter | Default | Description |
 |-----------|---------|-------------|
-| `accent-color` | `rgb("#eb811b")` (orange) | The primary accent color. When other accent options are `auto`, they use this color. This orange is the classic Metropolis accent. |
+| `accent-color` | `rgb("#eb811b")` (orange) | The primary accent color. When other accent options are `auto`, they use this color. Used for `#alert[...]` text. Bold text (`*...*`) inherits the normal text color. This orange is the classic Metropolis accent. |
 | `hyperlink-color` | `auto` | Color for hyperlinks (created with `#link(...)`). When `auto`, uses `accent-color`. Set to a specific color like `rgb("#0077b6")` for blue links. |
 | `line-separator-color` | `auto` | Color for the horizontal line on the title slide that separates the title from author information. When `auto`, uses `accent-color`. |
 | `progress-bar-color` | `auto` | Color for the foreground of progress bars (in footer and on section slides). When `auto`, uses `accent-color`. |
 | `progress-bar-background` | `rgb("#d6c6b7")` (beige) | Background color for progress bars. This is the "unfilled" portion of the progress bar. |
-| `alert-color` | `auto` | Color for emphasized text created with `#alert[...]`. When `auto`, uses `accent-color`. |
+| `header-background-color` | `auto` | Background color for the slide header. When `auto`, uses dark teal `rgb("#23373b")` (does NOT inherit from `accent-color`). |
+| `focus-background-color` | `auto` | Background color for focus slides. When `auto`, uses `header-background-color`. |
 
 #### Color Examples
 
-**Single accent color (all elements use the same color):**
+**Single accent color (links, separators, progress bars all match):**
 ```typst
 #show: metropolyst-theme.with(
-  accent-color: rgb("#0077b6"),  // Blue accent for everything
+  accent-color: rgb("#0077b6"),  // Blue for links, separators, progress bars
 )
 ```
 
-**Multi-color accent scheme:**
+**Matching header background to accent color:**
 ```typst
 #show: metropolyst-theme.with(
-  accent-color: rgb("#e63946"),           // Red for general accents
+  accent-color: rgb("#0077b6"),
+  header-background-color: rgb("#0077b6"),  // Must be set explicitly
+)
+```
+
+**Multi-color scheme:**
+```typst
+#show: metropolyst-theme.with(
+  accent-color: rgb("#e63946"),           // Red for alert text
   hyperlink-color: rgb("#0077b6"),        // Blue for links
   progress-bar-color: rgb("#2a9d8f"),     // Teal for progress bars
-  alert-color: rgb("#f4a261"),            // Orange for alerts
 )
 ```
 
@@ -197,7 +311,7 @@ Creates the opening slide with title, subtitle, author, date, institution, and o
 ]
 ```
 
-Standard slide with header showing the slide title, footer with progress bar, and your content.
+Standard slide with header showing the slide title, footer with slide counter, and your content.
 
 ### Section Slide
 
@@ -268,6 +382,7 @@ Download from [Google Fonts](https://fonts.google.com/specimen/Fira+Sans) and in
 
 - `example-default.typ` - Minimal example using default settings
 - `example-custom.typ` - Comprehensive example demonstrating all configuration options
+- `example-epi.typ` - Example using the built-in EPI brand preset
 
 ---
 

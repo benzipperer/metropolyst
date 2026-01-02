@@ -9,7 +9,7 @@
   // ============================================================
   aspect-ratio: "16-9",           // Options: "16-9" (widescreen) or "4-3" (traditional)
   align: horizon,                  // Options: horizon (center), top, bottom
-  footer-progress: true,           // Show progress bar at bottom of slides
+  footer-progress: true,           // Enable progress bar (default: false)
 
   // ============================================================
   // HEADER/FOOTER CONTENT
@@ -20,49 +20,41 @@
   // footer-right uses default slide counter "X / Y"
 
   // ============================================================
-  // FONT CONFIGURATION - Header & Footer
+  // FONT CONFIGURATION
   // ============================================================
-  header-font: ("Libertinus Serif",),     // Font family for slide headers
-  header-size: 1.4em,              // Larger than default 1.2em
-  header-weight: "bold",           // Bolder than default "medium"
+  // The "font" parameter sets the font for all elements (header, footer,
+  // title, section, focus). Individual *-font parameters can override it.
+  font: ("Libertinus Serif",),     // Cascades to all elements
 
-  footer-font: ("Libertinus Serif",),     // Font family for footer
-  footer-size: 0.9em,              // Larger than default 0.8em
+  // Header configuration (font inherited from main font)
+  header-size: 1.4em,              // Larger than default 1.2em
+  header-weight: "bold",           // Bolder than default "regular"
+
+  // Footer configuration (font inherited from main font)
+  footer-size: 0.9em,              // Larger than default 0.6em
   footer-weight: "semibold",       // Bolder than default "regular"
 
-  // ============================================================
-  // FONT CONFIGURATION - Title Slide
-  // ============================================================
-  title-font: ("Libertinus Serif",),      // Font family for presentation title
-  title-size: 1.8em,               // Larger than default 1.3em
-  title-weight: "bold",            // Bolder than default "medium"
-
-  subtitle-size: 1.1em,            // Larger than default 0.9em
-  subtitle-weight: "medium",       // Bolder than default "regular"
-
+  // Title slide configuration (font inherited from main font)
+  title-size: 1.8em,               // Larger than default 1.4em
+  title-weight: "bold",            // Bolder than default "regular"
+  subtitle-size: 1.1em,            // Larger than default 1.0em
+  subtitle-weight: "medium",       // Bolder than default "light"
   author-size: 0.9em,              // Slightly larger than default 0.8em
-  author-weight: "medium",         // Bolder than default "regular"
-
+  author-weight: "medium",         // Bolder than default "light"
   date-size: 0.85em,               // Slightly larger than default 0.8em
-  date-weight: "regular",          // Same as default
-
+  date-weight: "regular",          // Bolder than default "light"
   institution-size: 0.9em,         // Slightly larger than default 0.8em
-  institution-weight: "medium",    // Bolder than default "regular"
-
+  institution-weight: "medium",    // Bolder than default "light"
   extra-size: 0.85em,              // Slightly larger than default 0.8em
-  extra-weight: "regular",         // Same as default
-
+  extra-weight: "regular",         // Bolder than default "light"
   logo-size: 2.5em,                // Larger than default 2em
 
-  // ============================================================
-  // FONT CONFIGURATION - Section & Focus Slides
-  // ============================================================
-  section-font: ("Libertinus Serif",),    // Font family for section slides
-  section-size: 1.8em,             // Larger than default 1.5em
+  // Section slides (font inherited from main font)
+  section-size: 1.8em,             // Larger than default 1.4em
   section-weight: "bold",          // Bolder than default "regular"
 
-  focus-font: ("Libertinus Serif",),      // Font family for focus slides
-  focus-size: 2.0em,               // Larger than default 1.5em
+  // Focus slides (font inherited from main font)
+  focus-size: 2.0em,               // Larger than default 1.4em
   focus-weight: "bold",            // Bolder than default "regular"
 
   // ============================================================
@@ -76,7 +68,9 @@
   line-separator-color: rgb("#2563eb"),      // Blue separator (default: auto)
   progress-bar-color: rgb("#10b981"),        // Green progress bar (default: auto)
   progress-bar-background: rgb("#d1fae5"),   // Light green background (default: #d6c6b7)
-  alert-color: rgb("#ef4444"),               // Red for alerts (default: auto)
+  // Note: alert text (#alert[...]) uses accent-color; bold text inherits normal color
+  header-background-color: rgb("#166534"),   // Dark green header background
+  focus-background-color: rgb("#166534"),    // Dark green focus slide background
 
   // ============================================================
   // PRESENTATION INFO
@@ -101,206 +95,210 @@
 
 #title-slide(extra: [Extra text appears here with custom size/weight])
 
-== Layout Configuration
+= Layout Configuration
 
-#slide[
-  = Layout Options
+== Layout Options
 
-  This presentation demonstrates custom layout settings:
+This presentation demonstrates custom layout settings:
 
-  #table(
-    columns: (1fr, 1fr, 1fr),
-    inset: 8pt,
-    align: left,
-    [*Option*], [*This Presentation*], [*Default*],
-    [`aspect-ratio`], [`"16-9"`], [`"16-9"`],
-    [`align`], [`horizon`], [`horizon`],
-    [`footer-progress`], [`true`], [`true`],
-    [`footer`], [`[Metropolyst Demo]`], [`none`],
-  )
+#table(
+  columns: (1fr, 1fr, 1fr),
+  inset: 8pt,
+  align: left,
+  [*Option*], [*This Presentation*], [*Default*],
+  [`aspect-ratio`], [`"16-9"`], [`"16-9"`],
+  [`align`], [`horizon`], [`horizon`],
+  [`footer-progress`], [`true`], [`false`],
+  [`footer`], [`[Metropolyst Demo]`], [`none`],
+)
 
-  The footer on the left shows custom content instead of being empty.
-]
+The footer on the left shows custom content instead of being empty.
 
-== Font Configuration
+= Font Configuration
 
-#slide[
-  = Header & Footer Fonts
+== Header & Footer Fonts
 
-  Notice the header above is *larger and bolder* than default:
+Notice the header above is *larger and bolder* than default:
 
-  #table(
-    columns: (1fr, 1fr, 1fr),
-    inset: 8pt,
-    align: left,
-    [*Option*], [*This Presentation*], [*Default*],
-    [`header-size`], [`1.4em`], [`1.2em`],
-    [`header-weight`], [`"bold"`], [`"medium"`],
-    [`footer-size`], [`0.9em`], [`0.8em`],
-    [`footer-weight`], [`"medium"`], [`"regular"`],
-  )
+#table(
+  columns: (1fr, 1fr, 1fr),
+  inset: 8pt,
+  align: left,
+  [*Option*], [*This Presentation*], [*Default*],
+  [`header-size`], [`1.4em`], [`1.2em`],
+  [`header-weight`], [`"bold"`], [`"medium"`],
+  [`footer-size`], [`0.9em`], [`0.8em`],
+  [`footer-weight`], [`"medium"`], [`"regular"`],
+)
 
-  Look at the footer below to see the difference!
-]
+Look at the footer below to see the difference!
 
-#slide[
-  = Title Slide Fonts
+== Title Slide Fonts
 
-  The title slide uses custom typography:
+The title slide uses custom typography:
 
-  #table(
-    columns: (1fr, 1fr, 1fr),
-    inset: 8pt,
-    align: left,
-    [*Option*], [*This Presentation*], [*Default*],
-    [`title-size`], [`1.8em`], [`1.3em`],
-    [`title-weight`], [`"bold"`], [`"medium"`],
-    [`subtitle-size`], [`1.1em`], [`0.9em`],
-    [`subtitle-weight`], [`"medium"`], [`"regular"`],
-    [`author-size`], [`0.9em`], [`0.8em`],
-    [`logo-size`], [`2.5em`], [`2em`],
-  )
-]
+#table(
+  columns: (1fr, 1fr, 1fr),
+  inset: 8pt,
+  align: left,
+  [*Option*], [*This Presentation*], [*Default*],
+  [`title-size`], [`1.8em`], [`1.3em`],
+  [`title-weight`], [`"bold"`], [`"medium"`],
+  [`subtitle-size`], [`1.1em`], [`0.9em`],
+  [`subtitle-weight`], [`"medium"`], [`"regular"`],
+  [`author-size`], [`0.9em`], [`0.8em`],
+  [`logo-size`], [`2.5em`], [`2em`],
+)
 
-#slide[
-  = Section & Focus Slide Fonts
+== Section & Focus Slide Fonts
 
-  Section dividers (like the one before this slide) use:
+Section dividers (like the one before this slide) use:
 
-  #table(
-    columns: (1fr, 1fr, 1fr),
-    inset: 8pt,
-    align: left,
-    [*Option*], [*This Presentation*], [*Default*],
-    [`section-size`], [`1.8em`], [`1.5em`],
-    [`section-weight`], [`"bold"`], [`"regular"`],
-    [`focus-size`], [`2.0em`], [`1.5em`],
-    [`focus-weight`], [`"bold"`], [`"regular"`],
-  )
+#table(
+  columns: (1fr, 1fr, 1fr),
+  inset: 8pt,
+  align: left,
+  [*Option*], [*This Presentation*], [*Default*],
+  [`section-size`], [`1.8em`], [`1.5em`],
+  [`section-weight`], [`"bold"`], [`"regular"`],
+  [`focus-size`], [`2.0em`], [`1.5em`],
+  [`focus-weight`], [`"bold"`], [`"regular"`],
+)
 
-  The next slide is a focus slide demonstrating these settings.
-]
+The next slide is a focus slide demonstrating these settings.
 
 #focus-slide[
   Focus slides use custom size (2.0em) and weight (bold)
 ]
 
-== Color Configuration
+= Color Configuration
 
-#slide[
-  = Accent Color System
+== Color System
 
-  Metropolyst uses a *cascading color system*:
+Metropolyst has two types of configurable colors:
 
-  + Set `accent-color` as the base color
-  + Other options default to `auto` (inherit from accent-color)
-  + Override specific options for different colors
+*Accent colors* — inherit from `accent-color` when `auto`:
+- `hyperlink-color`, `line-separator-color`, `progress-bar-color`
 
-  This presentation uses *blue* as the base accent (\#2563eb).
+*Background colors* — have independent defaults:
+- `header-background-color` (dark teal \#23373b)
+- `focus-background-color` (inherits from header background)
+
+This presentation uses *blue* (\#2563eb) as the base accent.
+
+== Color Options Demonstrated
+
+Each accent element has a custom color:
+
+#text(size: 0.75em)[
+#table(
+  columns: (1fr, 1fr, 1fr, 1fr),
+  inset: 6pt,
+  align: left,
+  [*Option*], [*Default*], [*This Presentation*], [*Where Used*],
+  [`accent-color`], [#box(fill: rgb("#eb811b"), width: 1em, height: 1em) Orange], [#box(fill: rgb("#2563eb"), width: 1em, height: 1em) Blue], [Base color, alert],
+  [`hyperlink-color`], [`auto`], [#box(fill: rgb("#7c3aed"), width: 1em, height: 1em) Purple], [Links],
+  [`progress-bar-color`], [`auto`], [#box(fill: rgb("#10b981"), width: 1em, height: 1em) Green], [Progress bar],
+  [`line-separator-color`], [`auto`], [#box(fill: rgb("#2563eb"), width: 1em, height: 1em) Blue], [Title line],
+  [`header-background-color`], [#box(fill: rgb("#23373b"), width: 1em, height: 1em) Dark], [#box(fill: rgb("#166534"), width: 1em, height: 1em) Green], [Header],
+  [`focus-background-color`], [`auto`], [#box(fill: rgb("#166534"), width: 1em, height: 1em) Green], [Focus slides],
+)
 ]
 
-#slide[
-  = Color Options Demonstrated
+== Color Examples in Action
 
-  Each accent element has a custom color:
+*Hyperlinks* use purple: #link("https://typst.app")[Visit Typst]
 
-  #table(
-    columns: (1fr, 1fr, 1fr),
-    inset: 8pt,
-    align: left,
-    [*Option*], [*Color*], [*Where Used*],
-    [`accent-color`], [#box(fill: rgb("#2563eb"), width: 1em, height: 1em) Blue], [Base color],
-    [`hyperlink-color`], [#box(fill: rgb("#7c3aed"), width: 1em, height: 1em) Purple], [Links],
-    [`progress-bar-color`], [#box(fill: rgb("#10b981"), width: 1em, height: 1em) Green], [Progress bar],
-    [`alert-color`], [#box(fill: rgb("#ef4444"), width: 1em, height: 1em) Red], [Alert text],
-    [`line-separator-color`], [#box(fill: rgb("#2563eb"), width: 1em, height: 1em) Blue], [Title slide line],
-  )
+*Bold text* is dark like normal text. #alert[Alert text] uses the accent color.
+
+*Progress bar* at the bottom uses green with light green background.
+
+The title slide's horizontal line uses blue (line-separator-color).
+
+The *header* and *focus slides* use dark green backgrounds.
+
+= All Font Options Reference
+
+== Cascading Font System
+
+Like `accent-color`, the `font` parameter cascades to all elements:
+
+#text(size: 0.8em)[
+#table(
+  columns: (1fr, 1fr, 1fr),
+  inset: 6pt,
+  align: left,
+  [*Parameter*], [*Default*], [*Description*],
+  [`font`], [`("Fira Sans",)`], [Base font for all elements],
+  [`header-font`], [`auto`], [Header font (defaults to `font`)],
+  [`footer-font`], [`auto`], [Footer font (defaults to `font`)],
+  [`title-font`], [`auto`], [Title slide font (defaults to `font`)],
+  [`section-font`], [`auto`], [Section slide font (defaults to `font`)],
+  [`focus-font`], [`auto`], [Focus slide font (defaults to `font`)],
+)
 ]
 
-#slide[
-  = Color Examples in Action
+Set `font` once to change all fonts, or override individual elements.
 
-  *Hyperlinks* use purple: #link("https://typst.app")[Visit Typst]
+== Complete Font Options List
 
-  *Alert text* uses red: #alert[This is important!]
-
-  *Progress bar* at the bottom uses green with light green background.
-
-  The title slide's horizontal line uses blue (line-separator-color).
+#text(size: 0.7em)[
+#table(
+  columns: (1fr, 1fr, 1fr),
+  inset: 5pt,
+  align: left,
+  [*Parameter*], [*Default*], [*Description*],
+  [`header-size`], [`1.2em`], [Header font size],
+  [`header-weight`], [`"regular"`], [Header font weight],
+  [`footer-size`], [`0.6em`], [Footer font size],
+  [`footer-weight`], [`"regular"`], [Footer font weight],
+  [`title-size`], [`1.4em`], [Title font size],
+  [`title-weight`], [`"regular"`], [Title font weight],
+  [`subtitle-size`], [`1.0em`], [Subtitle font size],
+  [`subtitle-weight`], [`"light"`], [Subtitle font weight],
+  [`author-size`], [`0.8em`], [Author font size],
+  [`author-weight`], [`"light"`], [Author font weight],
+)
 ]
 
-== All Font Options Reference
+== Complete Font Options (continued)
 
-#slide[
-  = Complete Font Options List
-
-  #text(size: 0.7em)[
-  #table(
-    columns: (1fr, 1fr, 1fr),
-    inset: 5pt,
-    align: left,
-    [*Parameter*], [*Default*], [*Description*],
-    [`header-font`], [`("Fira Sans",)`], [Header font family],
-    [`header-size`], [`1.2em`], [Header font size],
-    [`header-weight`], [`"medium"`], [Header font weight],
-    [`footer-font`], [`("Fira Sans",)`], [Footer font family],
-    [`footer-size`], [`0.8em`], [Footer font size],
-    [`footer-weight`], [`"regular"`], [Footer font weight],
-    [`title-font`], [`("Fira Sans",)`], [Title slide title font],
-    [`title-size`], [`1.3em`], [Title font size],
-    [`title-weight`], [`"medium"`], [Title font weight],
-    [`subtitle-size`], [`0.9em`], [Subtitle font size],
-    [`subtitle-weight`], [`"regular"`], [Subtitle font weight],
-  )
-  ]
+#text(size: 0.7em)[
+#table(
+  columns: (1fr, 1fr, 1fr),
+  inset: 5pt,
+  align: left,
+  [*Parameter*], [*Default*], [*Description*],
+  [`date-size`], [`0.8em`], [Date font size],
+  [`date-weight`], [`"light"`], [Date font weight],
+  [`institution-size`], [`0.8em`], [Institution font size],
+  [`institution-weight`], [`"light"`], [Institution font weight],
+  [`extra-size`], [`0.8em`], [Extra text font size],
+  [`extra-weight`], [`"light"`], [Extra text font weight],
+  [`logo-size`], [`2em`], [Logo size on title slide],
+  [`section-size`], [`1.4em`], [Section font size],
+  [`section-weight`], [`"regular"`], [Section font weight],
+  [`focus-size`], [`1.4em`], [Focus font size],
+  [`focus-weight`], [`"regular"`], [Focus font weight],
+)
 ]
 
-#slide[
-  = Complete Font Options (continued)
+= Summary
 
-  #text(size: 0.7em)[
-  #table(
-    columns: (1fr, 1fr, 1fr),
-    inset: 5pt,
-    align: left,
-    [*Parameter*], [*Default*], [*Description*],
-    [`author-size`], [`0.8em`], [Author font size],
-    [`author-weight`], [`"regular"`], [Author font weight],
-    [`date-size`], [`0.8em`], [Date font size],
-    [`date-weight`], [`"regular"`], [Date font weight],
-    [`institution-size`], [`0.8em`], [Institution font size],
-    [`institution-weight`], [`"regular"`], [Institution font weight],
-    [`extra-size`], [`0.8em`], [Extra text font size],
-    [`extra-weight`], [`"regular"`], [Extra text font weight],
-    [`logo-size`], [`2em`], [Logo size on title slide],
-    [`section-font`], [`("Fira Sans",)`], [Section slide font],
-    [`section-size`], [`1.5em`], [Section font size],
-    [`section-weight`], [`"regular"`], [Section font weight],
-    [`focus-font`], [`("Fira Sans",)`], [Focus slide font],
-    [`focus-size`], [`1.5em`], [Focus font size],
-    [`focus-weight`], [`"regular"`], [Focus font weight],
-  )
-  ]
-]
+== Configuration Summary
 
-== Summary
+*Font options* (22 total):
+- 1 cascading base font
+- 5 element-specific font overrides
+- 16 size/weight options
 
-#slide[
-  = Configuration Summary
+*Color options* (7 total):
+- 1 base accent color
+- 6 specific color overrides
 
-  *Font options* (26 total):
-  - 6 for header/footer
-  - 13 for title slide elements
-  - 7 for section/focus slides
-
-  *Color options* (6 total):
-  - 1 base accent color
-  - 5 specific color overrides
-
-  *Layout options* (7 total):
-  - Aspect ratio, alignment, progress bar
-  - Header and footer content
-]
+*Layout options* (7 total):
+- Aspect ratio, alignment, progress bar
+- Header and footer content
 
 #focus-slide[
   See README.md for complete documentation

@@ -4,6 +4,18 @@
 
 #import "@preview/touying:0.5.3": *
 
+/// Built-in brand presets for organizational styling.
+/// Usage: `#show: metropolyst-theme.with(..brands.EPI)`
+/// Users can also define their own brands as dictionaries.
+#let brands = (
+  EPI: (
+    accent-color: rgb("#C01F41"),
+    header-background-color: rgb("#063957"),
+    progress-bar-background: auto,
+    footer-right: none,
+  ),
+)
+
 /// Default slide function for the presentation.
 ///
 /// - title (string): The title of the slide. Default is `auto`.
@@ -43,7 +55,7 @@
   }
   let header(self) = {
     set std.align(top)
-    show: components.cell.with(fill: self.colors.secondary, inset: (top: 1.2em, bottom: 1.2em, x: 1em))
+    show: components.cell.with(fill: self.store.header-background-color, inset: (top: 1.2em, bottom: 1.2em, x: 1em))
     set std.align(horizon)
     set text(
       fill: self.colors.neutral-lightest,
@@ -255,14 +267,11 @@
       font: self.store.section-font,
       weight: self.store.section-weight,
     )
+    set text(fill: self.colors.neutral-darkest)
     stack(
       dir: ttb,
       spacing: 1em,
-      text(self.colors.neutral-darkest, utils.display-current-heading(
-        level: level,
-        numbered: numbered,
-        style: auto,
-      )),
+      utils.display-current-heading(level: level, numbered: numbered),
       block(
         height: 2pt,
         width: 100%,
@@ -274,7 +283,7 @@
         ),
       ),
     )
-    text(self.colors.neutral-dark, body)
+    body
   }
   self = utils.merge-dicts(
     self,
@@ -299,7 +308,7 @@
   self = utils.merge-dicts(
     self,
     config-common(freeze-slide-counter: true),
-    config-page(fill: self.colors.neutral-dark, margin: 2em),
+    config-page(fill: self.store.focus-background-color, margin: 2em),
   )
   set text(
     fill: self.colors.neutral-lightest,
@@ -361,26 +370,30 @@
 /// ```
 ///
 /// Font configuration parameters:
-/// - header-font, header-size, header-weight: Controls slide header appearance
-/// - footer-font, footer-size, footer-weight: Controls footer appearance
-/// - title-font, title-size, title-weight: Controls main title on title slide
+/// - font: Main font used throughout the theme (default: "Fira Sans")
+///   This serves as the default for all other font options below
+/// - header-font, header-size, header-weight: Controls slide header appearance (defaults to font)
+/// - footer-font, footer-size, footer-weight: Controls footer appearance (defaults to font)
+/// - title-font, title-size, title-weight: Controls main title on title slide (defaults to font)
 /// - subtitle-size, subtitle-weight: Controls subtitle on title slide
 /// - author-size, author-weight: Controls author text
 /// - date-size, date-weight: Controls date text
 /// - institution-size, institution-weight: Controls institution text
 /// - extra-size, extra-weight: Controls extra text on title slide
 /// - logo-size: Controls logo size on title slide
-/// - section-font, section-size, section-weight: Controls section slide text
-/// - focus-font, focus-size, focus-weight: Controls focus slide text
+/// - section-font, section-size, section-weight: Controls section slide text (defaults to font)
+/// - focus-font, focus-size, focus-weight: Controls focus slide text (defaults to font)
 ///
 /// Accent color configuration:
 /// - accent-color: Main accent color used throughout the theme (default: orange #eb811b)
-///   This serves as the default for all other accent color options below
+///   This serves as the default for all other accent color options below.
+///   Used for alert text (#alert[...]). Bold text (*...*) inherits normal text color.
 /// - hyperlink-color: Color for hyperlinks (defaults to accent-color)
 /// - line-separator-color: Color for line separators like on the title slide (defaults to accent-color)
 /// - progress-bar-color: Color for progress bars in footer and section slides (defaults to accent-color)
-/// - progress-bar-background: Background color for progress bars (default: #d6c6b7)
-/// - alert-color: Color for alert/emphasized text via the alert function (defaults to accent-color)
+/// - progress-bar-background: Background color for progress bars (default: #d6c6b7). Set to `auto` to derive from accent-color.
+/// - header-background-color: Background color for the slide header containing titles (defaults to #23373b)
+/// - focus-background-color: Background color for focus slides (defaults to header-background-color when auto)
 ///
 /// - aspect-ratio (string): The aspect ratio of the slides. Default is `16-9`.
 ///
@@ -404,21 +417,21 @@
   ),
   header-right: self => self.info.logo,
   footer: none,
-  footer-right: context utils.slide-counter.display()
-    + " / "
-    + utils.last-slide-number,
-  footer-progress: true,
+  footer-right: context utils.slide-counter.display() + " / " + utils.last-slide-number,
+  footer-progress: false,
   // Font configuration options - matched to original Metropolis beamer theme
+  // Main font that cascades to all elements (can be overridden individually)
+  font: ("Fira Sans",),
   // Frame titles use \large size (1.2x \normalsize), regular weight
-  header-font: ("Fira Sans",),
+  header-font: auto,
   header-size: 1.2em,
   header-weight: "regular",
   // Footer uses \scriptsize
-  footer-font: ("Fira Sans",),
+  footer-font: auto,
   footer-size: 0.6em,
   footer-weight: "regular",
   // Title slide uses \Large for title, \large for subtitle
-  title-font: ("Fira Sans",),
+  title-font: auto,
   title-size: 1.4em,
   title-weight: "regular",
   subtitle-size: 1.0em,
@@ -434,11 +447,11 @@
   extra-weight: "light",
   logo-size: 2em,
   // Section pages use \Large
-  section-font: ("Fira Sans",),
+  section-font: auto,
   section-size: 1.4em,
   section-weight: "regular",
   // Focus/standout slides use \Large
-  focus-font: ("Fira Sans",),
+  focus-font: auto,
   focus-size: 1.4em,
   focus-weight: "regular",
   // Accent color configuration
@@ -447,16 +460,34 @@
   line-separator-color: auto,
   progress-bar-color: auto,
   progress-bar-background: rgb("#d6c6b7"),
-  alert-color: auto,
+  header-background-color: auto,
+  focus-background-color: auto,
   ..args,
   body,
 ) = {
+  // Resolve auto values for fonts (cascade from main font)
+  let resolved-header-font = if header-font == auto { font } else { header-font }
+  let resolved-footer-font = if footer-font == auto { font } else { footer-font }
+  let resolved-title-font = if title-font == auto { font } else { title-font }
+  let resolved-section-font = if section-font == auto { font } else { section-font }
+  let resolved-focus-font = if focus-font == auto { font } else { focus-font }
   // Resolve auto values for accent colors
   let resolved-hyperlink-color = if hyperlink-color == auto { accent-color } else { hyperlink-color }
   let resolved-line-separator-color = if line-separator-color == auto { accent-color } else { line-separator-color }
   let resolved-progress-bar-color = if progress-bar-color == auto { accent-color } else { progress-bar-color }
-  let resolved-alert-color = if alert-color == auto { accent-color } else { alert-color }
-  set text(size: 20pt, font: "Fira Sans")
+  // Derive progress bar background from accent color: desaturate heavily and lighten
+  // This mimics the original Metropolis relationship between orange #eb811b and tan #d6c6b7
+  let resolved-progress-bar-background = if progress-bar-background == auto {
+    accent-color.desaturate(70%).lighten(55%)
+  } else { progress-bar-background }
+  let resolved-header-background-color = if header-background-color == auto { rgb("#23373b") } else {
+    header-background-color
+  }
+  let resolved-focus-background-color = if focus-background-color == auto { resolved-header-background-color } else {
+    focus-background-color
+  }
+  set text(size: 20pt, font: font, weight: "light")
+  set strong(delta: 100)
 
   // Style hyperlinks with configurable color
   show link: it => text(fill: resolved-hyperlink-color, it)
@@ -471,13 +502,15 @@
     config-common(
       slide-fn: slide,
       new-section-slide-fn: new-section-slide,
+      // Match original Metropolis: bold text inherits normal color, only alert uses accent
+      show-strong-with-alert: false,
     ),
     config-methods(
-      alert: (self: none, it) => text(fill: self.store.alert-color, it),
+      alert: (self: none, it) => text(fill: self.colors.primary, it),
     ),
     config-colors(
       primary: accent-color,
-      primary-light: progress-bar-background,
+      primary-light: resolved-progress-bar-background,
       secondary: rgb("#23373b"),
       neutral-lightest: rgb("#fafafa"),
       neutral-dark: rgb("#23373b"),
@@ -495,16 +528,17 @@
       hyperlink-color: resolved-hyperlink-color,
       line-separator-color: resolved-line-separator-color,
       progress-bar-color: resolved-progress-bar-color,
-      progress-bar-background: progress-bar-background,
-      alert-color: resolved-alert-color,
-      // Store font configuration
-      header-font: header-font,
+      progress-bar-background: resolved-progress-bar-background,
+      header-background-color: resolved-header-background-color,
+      focus-background-color: resolved-focus-background-color,
+      // Store font configuration (using resolved values)
+      header-font: resolved-header-font,
       header-size: header-size,
       header-weight: header-weight,
-      footer-font: footer-font,
+      footer-font: resolved-footer-font,
       footer-size: footer-size,
       footer-weight: footer-weight,
-      title-font: title-font,
+      title-font: resolved-title-font,
       title-size: title-size,
       title-weight: title-weight,
       subtitle-size: subtitle-size,
@@ -518,10 +552,10 @@
       extra-size: extra-size,
       extra-weight: extra-weight,
       logo-size: logo-size,
-      section-font: section-font,
+      section-font: resolved-section-font,
       section-size: section-size,
       section-weight: section-weight,
-      focus-font: focus-font,
+      focus-font: resolved-focus-font,
       focus-size: focus-size,
       focus-weight: focus-weight,
     ),
