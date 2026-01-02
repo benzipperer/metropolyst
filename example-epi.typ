@@ -25,6 +25,7 @@
 
 The EPI brand applies these settings automatically:
 
+- *Font:* Roboto
 - *Accent color:* EPI red (\#C01F41)
 - *Header background:* EPI dark blue (\#063957)
 - *Progress bar background:* Auto (derived from accent color)
@@ -38,7 +39,7 @@ You can extend the brand with additional settings:
 #show: metropolyst-theme.with(
   ..brands.EPI,
   footer-progress: true,  // Add progress bar
-  font: ("Libertinus Serif",),  // Change font
+  font: ("Fira Sans",),  // Override the Roboto default
 )
 ```
 

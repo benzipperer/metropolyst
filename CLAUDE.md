@@ -22,7 +22,7 @@ for f in example-*.pdf; do pdffonts "$f"; done
 **Expected fonts:**
 - `example-default.pdf`: FiraSans-{Medium,Regular,Bold,Light}
 - `example-custom.pdf`: LibertinusSerif-{Bold,Regular,Semibold}
-- `example-epi.pdf`: FiraSans-{Regular,Light}, DejaVuSansMono
+- `example-epi.pdf`: Roboto-{Regular,Light}, DejaVuSansMono
 
 ## Adding Parameters
 
