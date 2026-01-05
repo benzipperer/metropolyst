@@ -1,7 +1,7 @@
 // Metropolyst Theme - EPI Brand Example
 // This example demonstrates the built-in EPI brand preset
 
-#import "metropolyst.typ": *
+#import "../lib.typ": *
 #import "@preview/touying:0.5.3": *
 
 // Apply the EPI brand with a single spread operator

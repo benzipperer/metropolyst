@@ -1,0 +1,17 @@
+[package]
+name = "metropolyst"
+version = "0.1.0"
+entrypoint = "lib.typ"
+authors = ["Ben Zipperer"]
+license = "MIT"
+description = "A highly configurable Metropolis-style presentation theme for Touying with full font and color customization"
+repository = "https://github.com/benzipperer/metropolyst"
+keywords = ["presentation", "slides", "metropolis", "theme", "touying", "beamer"]
+categories = ["presentation", "layout"]
+exclude = ["examples", "CLAUDE.md", "WORKPLAN.md"]
+compiler = "0.12.0"
+
+[template]
+path = "template"
+entrypoint = "main.typ"
+thumbnail = "thumbnail.png"

@@ -1,7 +1,7 @@
 // Metropolyst Theme - Custom Configuration Example
 // This example demonstrates ALL configuration options with explanations
 
-#import "metropolyst.typ": *
+#import "../lib.typ": *
 
 #show: metropolyst-theme.with(
   // ============================================================

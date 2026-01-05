@@ -1,7 +1,7 @@
 // Metropolyst Theme - Default Configuration Example
 // This example uses all default settings to demonstrate the out-of-box experience
 
-#import "metropolyst.typ": *
+#import "../lib.typ": *
 
 // Basic theme setup with just the required information
 #show: metropolyst-theme.with(

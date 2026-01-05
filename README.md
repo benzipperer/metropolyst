@@ -4,7 +4,7 @@ A highly configurable variant of the [Metropolis theme](https://touying-typ.gith
 
 ## Why Metropolyst?
 
-The original Metropolis theme has hard-coded font properties (sizes, weights, and faces) that cannot be overridden through configuration. Metropolyst solves this by exposing **all** font properties as configurable parameters while maintaining the elegant Metropolis aesthetic.
+The Metropolis touying theme has hard-coded font properties (sizes, weights, and faces) that cannot be overridden through configuration. Metropolyst solves this by exposing **all** font properties as configurable parameters while maintaining the elegant Metropolis aesthetic.
 
 ## Features
 
@@ -19,7 +19,7 @@ The original Metropolis theme has hard-coded font properties (sizes, weights, an
 Brands are preset configurations that apply organizational styling with a single setting. Use the spread operator (`..`) to apply a brand:
 
 ```typst
-#import "metropolyst.typ": metropolyst-theme, brands
+#import "@preview/metropolyst:0.1.0": metropolyst-theme, brands
 
 #show: metropolyst-theme.with(..brands.EPI)
 ```
@@ -59,7 +59,7 @@ Create custom brands as dictionaries in your own file:
 Then import and use:
 
 ```typst
-#import "metropolyst.typ": metropolyst-theme
+#import "@preview/metropolyst:0.1.0": metropolyst-theme
 #import "my-brands.typ": brands
 
 #show: metropolyst-theme.with(..brands.my-company)
@@ -80,12 +80,34 @@ Or define inline:
 
 ## Installation
 
-Copy `metropolyst.typ` to your project directory or install it as a local Typst package.
+### From Typst Universe (Recommended)
+
+Use the package directly in your document:
+
+```typst
+#import "@preview/metropolyst:0.1.0": metropolyst-theme, brands
+```
+
+### Using the Template
+
+Initialize a new project with the template:
+
+```bash
+typst init @preview/metropolyst:0.1.0
+```
+
+### Local Development
+
+Clone the repository and import directly:
+
+```typst
+#import "lib.typ": metropolyst-theme, brands
+```
 
 ## Quick Start
 
 ```typst
-#import "metropolyst.typ": metropolyst-theme, brands
+#import "@preview/metropolyst:0.1.0": metropolyst-theme, brands
 
 #show: metropolyst-theme.with(
   config-info(
@@ -110,7 +132,7 @@ Copy `metropolyst.typ` to your project directory or install it as a local Typst 
 ]
 ```
 
-See `example-default.typ` for a minimal working example and `example-custom.typ` for a comprehensive demonstration of all configuration options.
+See `examples/example-default.typ` for a minimal working example and `examples/example-custom.typ` for a comprehensive demonstration of all configuration options.
 
 ---
 
@@ -380,9 +402,9 @@ Download from [Google Fonts](https://fonts.google.com/specimen/Fira+Sans) and in
 
 ## Examples
 
-- `example-default.typ` - Minimal example using default settings
-- `example-custom.typ` - Comprehensive example demonstrating all configuration options
-- `example-epi.typ` - Example using the built-in EPI brand preset
+- `examples/example-default.typ` - Minimal example using default settings
+- `examples/example-custom.typ` - Comprehensive example demonstrating all configuration options
+- `examples/example-epi.typ` - Example using the built-in EPI brand preset
 
 ---
 
