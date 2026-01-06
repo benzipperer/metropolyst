@@ -8,23 +8,27 @@ Typst presentation theme based on Metropolis with fully configurable fonts and c
 - `typst.toml` - Package manifest
 - `template/main.typ` - Template for `typst init`
 - `examples/example-default.typ` - Default Fira Sans example
-- `examples/example-custom.typ` - Custom Libertinus Serif example
+- `examples/example-custom.typ` - Custom Lato example
 - `examples/example-epi.typ` - EPI brand preset example
 - `README.md` - User documentation
 - `LICENSE` - MIT license
+- `scripts/update-preview.py` - Generate preview.png from example-default.pdf
 
 ## Build & Verify
+
+If `main.typ` is updated, ensure that `example-default.typ` matches it.
 
 After any change, rebuild and verify ALL examples:
 
 ```bash
 for f in examples/example-*.typ; do typst compile --root . "$f"; done
 for f in examples/example-*.pdf; do pdffonts "$f"; done
+python3 scripts/update-preview.py
 ```
 
 **Expected fonts:**
 - `example-default.pdf`: FiraSans-{Regular,Light}
-- `example-custom.pdf`: LibertinusSerif-{Bold,Regular,Semibold}
+- `example-custom.pdf`: Lato-{Regular,Bold,Medium,Semibold,Heavy}, DejaVuSansMono
 - `example-epi.pdf`: Roboto-{Regular,Light}, DejaVuSansMono
 
 ## Adding Parameters

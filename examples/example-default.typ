@@ -36,17 +36,27 @@ This presentation uses the Metropolyst theme with default settings:
 - *Header background:* Dark teal (\#23373b)
 
 == Example of two-column layout
-#slide(composer: components.side-by-side.with(columns: (3fr, 2fr), gutter: 1.5em))[
-  === First column is wide
-  But if you want equal-width columns just use *🠚*
-][
-  === Second column is narrow
+#slide(composer: (3fr, 2fr))[
+  === The first column is wider than the second
+  Because the code for the layout is
+
   ```typst
-  #slide([
+  #slide(composer: (3fr, 2fr))[
+    First column content
+  ][
+    Second column content
+  ]
+  ```
+][
+  === For equal width columns
+  You can instead do
+
+  ```typst
+  #slide[
     First column content
   ][
     Second colum content
-  ])
+  ]
   ```
 ]
 
