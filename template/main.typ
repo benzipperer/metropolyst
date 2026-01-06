@@ -35,17 +35,22 @@ This presentation uses the Metropolyst theme with default settings:
 - *Accent color:* Orange (\#eb811b)
 - *Header background:* Dark teal (\#23373b)
 
-== Customization
-
-Metropolyst exposes all font and color properties:
-
-- Change fonts with `font:`, `header-font:`, `title-font:`, etc.
-- Customize colors with `accent-color:`, `header-background-color:`, etc.
-- Use brand presets: `#show: metropolyst-theme.with(..brands.EPI)`
-
-See the README for complete documentation.
-
 // Focus slide for emphasis
 #focus-slide[
-  Ready to present!
+  This is a focus slide for emphasis!
+]
+
+== Example of two-column layout
+#slide(composer: components.side-by-side.with(columns: (3fr, 2fr), gutter: 1.5em))[
+  === First column is wide
+  But if you want equal-width columns just use *🠚*
+][
+  === Second column is narrow
+  ```typst
+  #slide([
+    First column content
+  ][
+    Second colum content
+  ])
+  ```
 ]

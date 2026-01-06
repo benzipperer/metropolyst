@@ -1,18 +1,14 @@
 # Metropolyst Theme
 
-A highly configurable variant of the [Metropolis theme](https://touying-typ.github.io/docs/themes/metropolis/) for [Touying](https://github.com/touying-typ/touying) presentations in Typst.
+A highly configurable variant of the [Metropolis theme](https://touying-typ.github.io/docs/themes/metropolis/) for [Touying](https://github.com/touying-typ/touying) presentations in Typst. This theme allows for many font and color options, while still maintaing compatibility with the original [Metropolis beamer theme](https://github.com/matze/mtheme).
 
-## Why Metropolyst?
+INSERT IMAGE HERE
 
-The Metropolis touying theme has hard-coded font properties (sizes, weights, and faces) that cannot be overridden through configuration. Metropolyst solves this by exposing **all** font properties as configurable parameters while maintaining the elegant Metropolis aesthetic.
+MOVE INSTALLATION SECTION HERE
 
-## Features
+MOVE SLIDE TYPES HERE
 
-- **Fully Configurable Typography**: Control font face, size, and weight for every text element
-- **Granular Accent Colors**: Customize colors independently for hyperlinks, progress bars, alerts, and more
-- **Brand Presets**: Apply organizational branding with a single setting
-- **Fira Sans Default**: Uses Fira Sans as the default font family for a clean, modern look
-- **Drop-in Replacement**: Compatible with Metropolis theme structure and conventions
+MOVE CONFIGURATION REFERENCE HERE
 
 ## Brands
 
