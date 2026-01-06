@@ -4,76 +4,6 @@ A highly configurable variant of the [Metropolis theme](https://touying-typ.gith
 
 ![Preview of Metropolyst theme slides](assets/preview.png)
 
-MOVE INSTALLATION SECTION HERE
-
-MOVE SLIDE TYPES HERE
-
-MOVE CONFIGURATION REFERENCE HERE
-
-## Brands
-
-Brands are preset configurations that apply organizational styling with a single setting. Use the spread operator (`..`) to apply a brand:
-
-```typst
-#import "@preview/metropolyst:0.1.0": metropolyst-theme, brands
-
-#show: metropolyst-theme.with(..brands.EPI)
-```
-
-### Built-in Brands
-
-| Brand | Description |
-|-------|-------------|
-| `EPI` | Economic Policy Institute branding (Roboto font, red accent `#C01F41`, dark blue header `#063957`, no page counter) |
-
-### Combining Brands with Overrides
-
-You can apply a brand and then override specific settings:
-
-```typst
-#show: metropolyst-theme.with(
-  ..brands.EPI,
-  footer-progress: true,  // Add progress bar to EPI brand
-)
-```
-
-### Defining Your Own Brands
-
-Create custom brands as dictionaries in your own file:
-
-```typst
-// my-brands.typ
-#let brands = (
-  "my-company": (
-    accent-color: rgb("#ff0000"),
-    header-background-color: rgb("#333333"),
-    font: ("Roboto",),
-  ),
-)
-```
-
-Then import and use:
-
-```typst
-#import "@preview/metropolyst:0.1.0": metropolyst-theme
-#import "my-brands.typ": brands
-
-#show: metropolyst-theme.with(..brands.my-company)
-```
-
-Or define inline:
-
-```typst
-#let my-brand = (
-  accent-color: rgb("#0066cc"),
-  footer-right: none,
-)
-
-#show: metropolyst-theme.with(..my-brand)
-```
-
----
-
 ## Installation
 
 ### From Typst Universe (Recommended)
@@ -100,35 +30,48 @@ Clone the repository and import directly:
 #import "lib.typ": metropolyst-theme, brands
 ```
 
-## Quick Start
+## Slide Types
+
+Metropolyst provides four slide types:
+
+### Title Slide
 
 ```typst
-#import "@preview/metropolyst:0.1.0": metropolyst-theme, brands
-
-#show: metropolyst-theme.with(
-  config-info(
-    title: [Your Title],
-    subtitle: [Your Subtitle],
-    author: [Your Name],
-    date: datetime.today(),
-    institution: [Your Institution],
-  ),
-)
-
-#set text(font: "Fira Sans", weight: "light", size: 20pt)
-#set strong(delta: 100)
-
 #title-slide()
+// or with extra information:
+#title-slide(extra: [Conference Name 2025])
+```
 
-== Section Title
+Creates the opening slide with title, subtitle, author, date, institution, and optional logo. Configure the content using `config-info()`.
 
+### Content Slide
+
+```typst
 #slide[
   = Slide Title
   Your content here...
 ]
 ```
 
-See [example-default.typ](https://github.com/benzipperer/metropolyst/blob/main/examples/example-default.typ) for a minimal working example and [example-custom.typ](https://github.com/benzipperer/metropolyst/blob/main/examples/example-custom.typ) for a comprehensive demonstration of all configuration options.
+Standard slide with header showing the slide title, footer with slide counter, and your content.
+
+### Section Slide
+
+```typst
+== Section Name
+```
+
+Automatically creates a section divider slide when you use a level-2 heading. Shows the section name with a progress bar.
+
+### Focus Slide
+
+```typst
+#focus-slide[
+  *Key Message*
+]
+```
+
+High-contrast slide with dark background and light text. Use for important messages or transitions.
 
 ---
 
@@ -212,48 +155,99 @@ Colors cascade: `accent-color` affects links, separators, and progress bars when
 
 ---
 
-## Slide Types
+## Brands
 
-Metropolyst provides four slide types:
-
-### Title Slide
+Brands are preset configurations that apply organizational styling with a single setting. Use the spread operator (`..`) to apply a brand:
 
 ```typst
-#title-slide()
-// or with extra information:
-#title-slide(extra: [Conference Name 2025])
+#import "@preview/metropolyst:0.1.0": metropolyst-theme, brands
+
+#show: metropolyst-theme.with(..brands.EPI)
 ```
 
-Creates the opening slide with title, subtitle, author, date, institution, and optional logo. Configure the content using `config-info()`.
+### Built-in Brands
 
-### Content Slide
+| Brand | Description |
+|-------|-------------|
+| `EPI` | Economic Policy Institute branding (Roboto font, red accent `#C01F41`, dark blue header `#063957`, no page counter) |
+
+### Combining Brands with Overrides
+
+You can apply a brand and then override specific settings:
 
 ```typst
+#show: metropolyst-theme.with(
+  ..brands.EPI,
+  footer-progress: true,  // Add progress bar to EPI brand
+)
+```
+
+### Defining Your Own Brands
+
+Create custom brands as dictionaries in your own file:
+
+```typst
+// my-brands.typ
+#let brands = (
+  "my-company": (
+    accent-color: rgb("#ff0000"),
+    header-background-color: rgb("#333333"),
+    font: ("Roboto",),
+  ),
+)
+```
+
+Then import and use:
+
+```typst
+#import "@preview/metropolyst:0.1.0": metropolyst-theme
+#import "my-brands.typ": brands
+
+#show: metropolyst-theme.with(..brands.my-company)
+```
+
+Or define inline:
+
+```typst
+#let my-brand = (
+  accent-color: rgb("#0066cc"),
+  footer-right: none,
+)
+
+#show: metropolyst-theme.with(..my-brand)
+```
+
+---
+
+## Quick Start
+
+```typst
+#import "@preview/metropolyst:0.1.0": metropolyst-theme, brands
+
+#show: metropolyst-theme.with(
+  config-info(
+    title: [Your Title],
+    subtitle: [Your Subtitle],
+    author: [Your Name],
+    date: datetime.today(),
+    institution: [Your Institution],
+  ),
+)
+
+#set text(font: "Fira Sans", weight: "light", size: 20pt)
+#set strong(delta: 100)
+
+#title-slide()
+
+== Section Title
+
 #slide[
   = Slide Title
   Your content here...
 ]
 ```
 
-Standard slide with header showing the slide title, footer with slide counter, and your content.
-
-### Section Slide
-
-```typst
-== Section Name
-```
-
-Automatically creates a section divider slide when you use a level-2 heading. Shows the section name with a progress bar.
-
-### Focus Slide
-
-```typst
-#focus-slide[
-  *Key Message*
-]
-```
-
-High-contrast slide with dark background and light text. Use for important messages or transitions.
+See [example-default.typ](https://github.com/benzipperer/metropolyst/blob/main/examples/example-default.typ) for a minimal working example and [example-custom.typ](https://github.com/benzipperer/metropolyst/blob/main/examples/example-custom.typ) for a comprehensive demonstration of all configuration options.
 
 ---
 
