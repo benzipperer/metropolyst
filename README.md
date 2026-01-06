@@ -2,7 +2,7 @@
 
 A highly configurable variant of the [Metropolis theme](https://touying-typ.github.io/docs/themes/metropolis/) for [Touying](https://github.com/touying-typ/touying) presentations in Typst. This theme allows for many font and color options, while still maintaing compatibility with the original [Metropolis beamer theme](https://github.com/matze/mtheme).
 
-INSERT IMAGE HERE
+![Preview of Metropolyst theme slides](assets/preview.png)
 
 MOVE INSTALLATION SECTION HERE
 
@@ -312,7 +312,7 @@ Download from [Google Fonts](https://fonts.google.com/specimen/Fira+Sans) and in
 
 ## Credits
 
-- Inspired by [Matthias Vogelgesang's Beamer Metropolis theme](https://github.com/matze/mtheme)
+- Tries to copy [Matthias Vogelgesang's Beamer Metropolis theme](https://github.com/matze/mtheme)
 - Based on the [Touying Metropolis theme](https://touying-typ.github.io/docs/themes/metropolis/) by @Enivex
 - Built for the [Touying](https://github.com/touying-typ/touying) presentation framework
 

@@ -24,21 +24,21 @@
   // ============================================================
   // The "font" parameter sets the font for all elements (header, footer,
   // title, section, focus). Individual *-font parameters can override it.
-  font: ("Libertinus Serif",),     // Cascades to all elements
+  font: ("Lato",),                  // Modern humanist sans-serif
 
   // Header configuration (font inherited from main font)
   header-size: 1.4em,              // Larger than default 1.2em
-  header-weight: "bold",           // Bolder than default "regular"
+  header-weight: "semibold",       // Clean modern weight
 
   // Footer configuration (font inherited from main font)
   footer-size: 0.9em,              // Larger than default 0.6em
-  footer-weight: "semibold",       // Bolder than default "regular"
+  footer-weight: "medium",         // Clean modern weight
 
   // Title slide configuration (font inherited from main font)
   title-size: 1.8em,               // Larger than default 1.4em
   title-weight: "bold",            // Bolder than default "regular"
   subtitle-size: 1.1em,            // Larger than default 1.0em
-  subtitle-weight: "medium",       // Bolder than default "light"
+  subtitle-weight: "regular",      // Light for contrast
   author-size: 0.9em,              // Slightly larger than default 0.8em
   author-weight: "medium",         // Bolder than default "light"
   date-size: 0.85em,               // Slightly larger than default 0.8em
@@ -51,26 +51,26 @@
 
   // Section slides (font inherited from main font)
   section-size: 1.8em,             // Larger than default 1.4em
-  section-weight: "bold",          // Bolder than default "regular"
+  section-weight: "semibold",      // Clean modern weight
 
   // Focus slides (font inherited from main font)
   focus-size: 2.0em,               // Larger than default 1.4em
-  focus-weight: "bold",            // Bolder than default "regular"
+  focus-weight: "semibold",        // Clean modern weight
 
   // ============================================================
   // COLOR CONFIGURATION
   // ============================================================
   // The accent-color is the base; other colors default to it when set to "auto"
-  accent-color: rgb("#2563eb"),              // Blue (default: #eb811b orange)
+  accent-color: rgb("#7c3aed"),              // Violet (modern, vibrant)
 
   // These override accent-color for specific elements:
-  hyperlink-color: rgb("#7c3aed"),           // Purple for links (default: auto)
-  line-separator-color: rgb("#2563eb"),      // Blue separator (default: auto)
-  progress-bar-color: rgb("#10b981"),        // Green progress bar (default: auto)
-  progress-bar-background: rgb("#d1fae5"),   // Light green background (default: #d6c6b7)
+  hyperlink-color: rgb("#6366f1"),           // Indigo for links
+  line-separator-color: rgb("#7c3aed"),      // Violet separator
+  progress-bar-color: rgb("#7c3aed"),        // Violet progress bar
+  progress-bar-background: rgb("#e0e7ff"),   // Light indigo background
   // Note: alert text (#alert[...]) uses accent-color; bold text inherits normal color
-  header-background-color: rgb("#166534"),   // Dark green header background
-  focus-background-color: rgb("#166534"),    // Dark green focus slide background
+  header-background-color: rgb("#1e1b4b"),   // Deep indigo header background
+  focus-background-color: rgb("#1e1b4b"),    // Deep indigo focus slide background
 
   // ============================================================
   // PRESENTATION INFO
@@ -81,11 +81,11 @@
     author: [Theme Developer],
     date: datetime.today(),
     institution: [Metropolyst Project],
-    logo: emoji.palette,
+    logo: emoji.sparkles,
   ),
 )
 
-#set text(font: "Libertinus Serif", weight: "regular", size: 20pt)
+#set text(font: "Lato", weight: "regular", size: 20pt)
 #set strong(delta: 400)
 #set par(justify: true)
 
@@ -184,7 +184,7 @@ Metropolyst has two types of configurable colors:
 - `header-background-color` (dark teal \#23373b)
 - `focus-background-color` (inherits from header background)
 
-This presentation uses *blue* (\#2563eb) as the base accent.
+This presentation uses *violet* (\#7c3aed) as the base accent.
 
 == Color Options Demonstrated
 
@@ -196,26 +196,26 @@ Each accent element has a custom color:
   inset: 6pt,
   align: left,
   [*Option*], [*Default*], [*This Presentation*], [*Where Used*],
-  [`accent-color`], [#box(fill: rgb("#eb811b"), width: 1em, height: 1em) Orange], [#box(fill: rgb("#2563eb"), width: 1em, height: 1em) Blue], [Base color, alert],
-  [`hyperlink-color`], [`auto`], [#box(fill: rgb("#7c3aed"), width: 1em, height: 1em) Purple], [Links],
-  [`progress-bar-color`], [`auto`], [#box(fill: rgb("#10b981"), width: 1em, height: 1em) Green], [Progress bar],
-  [`line-separator-color`], [`auto`], [#box(fill: rgb("#2563eb"), width: 1em, height: 1em) Blue], [Title line],
-  [`header-background-color`], [#box(fill: rgb("#23373b"), width: 1em, height: 1em) Dark], [#box(fill: rgb("#166534"), width: 1em, height: 1em) Green], [Header],
-  [`focus-background-color`], [`auto`], [#box(fill: rgb("#166534"), width: 1em, height: 1em) Green], [Focus slides],
+  [`accent-color`], [#box(fill: rgb("#eb811b"), width: 1em, height: 1em) Orange], [#box(fill: rgb("#7c3aed"), width: 1em, height: 1em) Violet], [Base color, alert],
+  [`hyperlink-color`], [`auto`], [#box(fill: rgb("#6366f1"), width: 1em, height: 1em) Indigo], [Links],
+  [`progress-bar-color`], [`auto`], [#box(fill: rgb("#7c3aed"), width: 1em, height: 1em) Violet], [Progress bar],
+  [`line-separator-color`], [`auto`], [#box(fill: rgb("#7c3aed"), width: 1em, height: 1em) Violet], [Title line],
+  [`header-background-color`], [#box(fill: rgb("#23373b"), width: 1em, height: 1em) Dark], [#box(fill: rgb("#1e1b4b"), width: 1em, height: 1em) Indigo], [Header],
+  [`focus-background-color`], [`auto`], [#box(fill: rgb("#1e1b4b"), width: 1em, height: 1em) Indigo], [Focus slides],
 )
 ]
 
 == Color Examples in Action
 
-*Hyperlinks* use purple: #link("https://typst.app")[Visit Typst]
+*Hyperlinks* use indigo: #link("https://typst.app")[Visit Typst]
 
 *Bold text* is dark like normal text. #alert[Alert text] uses the accent color.
 
-*Progress bar* at the bottom uses green with light green background.
+*Progress bar* at the bottom uses violet with light indigo background.
 
-The title slide's horizontal line uses blue (line-separator-color).
+The title slide's horizontal line uses violet (line-separator-color).
 
-The *header* and *focus slides* use dark green backgrounds.
+The *header* and *focus slides* use deep indigo backgrounds.
 
 = All Font Options Reference
 
@@ -229,7 +229,7 @@ Like `accent-color`, the `font` parameter cascades to all elements:
   inset: 6pt,
   align: left,
   [*Parameter*], [*Default*], [*Description*],
-  [`font`], [`("Fira Sans",)`], [Base font for all elements],
+  [`font`], [`("Fira Sans",)`], [Base font (this uses Lato)],
   [`header-font`], [`auto`], [Header font (defaults to `font`)],
   [`footer-font`], [`auto`], [Footer font (defaults to `font`)],
   [`title-font`], [`auto`], [Title slide font (defaults to `font`)],

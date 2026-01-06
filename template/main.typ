@@ -35,11 +35,6 @@ This presentation uses the Metropolyst theme with default settings:
 - *Accent color:* Orange (\#eb811b)
 - *Header background:* Dark teal (\#23373b)
 
-// Focus slide for emphasis
-#focus-slide[
-  This is a focus slide for emphasis!
-]
-
 == Example of two-column layout
 #slide(composer: components.side-by-side.with(columns: (3fr, 2fr), gutter: 1.5em))[
   === First column is wide
@@ -54,3 +49,34 @@ This presentation uses the Metropolyst theme with default settings:
   ])
   ```
 ]
+
+// Focus slide for emphasis
+#focus-slide[
+  This is a focus slide for emphasis!
+]
+
+== Configuration options, and a long slide title with font size automatically scaled to fit on one line
+
+These are the default styles for *bold*, #alert[alert], and #link("https://typst.app")[hyperlink] text.
+
+View the #link("https://github.com/benzipperer/metropolyst")[documentation] for all configuration options.
+
+=== Example
+
+```typst
+#show: metropolyst-theme.with(
+  font: ("Roboto",),                       // Modern sans-serif
+  font-size: 22pt,                         // Slightly larger text
+  accent-color: rgb("#10b981"),            // Emerald accent
+  hyperlink-color: rgb("#0ea5e9"),         // Sky blue links
+  header-background-color: rgb("#0f172a"), // Slate dark header
+)
+#set strong(delta: 300)                    // Bolder bold text
+```
+
+#text(
+  font: "Roboto",
+  size: 22pt,
+)[These are the custom styles for #text(weight: "bold")[*bold*], #text(fill: rgb("#10b981"))[alert], and #link("https://typst.app")[#text(fill: rgb("#0ea5e9"))[hyperlink]] text.]
+
+
