@@ -17,6 +17,7 @@ Always keep this list of files up-to-date.
 - `scripts/update-preview.py` - Generate assets/preview.png from example-default.pdf
 - `scripts/copy-to-packages.sh` - Copy files for typst/packages PR (run from destination)
 - `assets/preview.png` - README preview image (excluded from package archive)
+- `UPDATE.md` - Submission instructions for typst/packages
 
 ## Build & Verify
 

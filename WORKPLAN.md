@@ -395,12 +395,20 @@ rm -rf ~/.local/share/typst/packages/preview/metropolyst/0.1.0
 
 #### 7.1 Fork typst/packages
 
+First, fork the typst/packages repository on GitHub, then clone your fork with sparse checkout:
+
 ```bash
-# Clone with sparse checkout (recommended for large repo)
-git clone --filter=blob:none --sparse https://github.com/typst/packages
+# Clone your fork with sparse checkout (recommended for large repo)
+git clone --depth 1 --no-checkout --filter="tree:0" git@github.com:YOUR_USERNAME/packages
 cd packages
-git sparse-checkout set packages/preview
+git sparse-checkout init
+git sparse-checkout set packages/preview/metropolyst
+git remote add upstream git@github.com:typst/packages
+git config remote.upstream.partialclonefilter tree:0
+git checkout main
 ```
+
+Replace `YOUR_USERNAME` with your GitHub username.
 
 #### 7.2 Create package directory
 
