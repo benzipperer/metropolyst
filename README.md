@@ -298,9 +298,9 @@ Download from [Google Fonts](https://fonts.google.com/specimen/Fira+Sans) and in
 
 ## Examples
 
-- [example-default.typ](https://github.com/benzipperer/metropolyst/blob/main/examples/example-default.typ) - Minimal example using default settings
-- [example-custom.typ](https://github.com/benzipperer/metropolyst/blob/main/examples/example-custom.typ) - Comprehensive example demonstrating all configuration options
-- [example-epi.typ](https://github.com/benzipperer/metropolyst/blob/main/examples/example-epi.typ) - Example using the built-in EPI brand preset
+- [example-default.typ](https://github.com/benzipperer/metropolyst/blob/main/examples/example-default.typ) ([PDF](https://github.com/benzipperer/metropolyst/blob/main/examples/example-default.pdf)) - Minimal example using default settings
+- [example-custom.typ](https://github.com/benzipperer/metropolyst/blob/main/examples/example-custom.typ) ([PDF](https://github.com/benzipperer/metropolyst/blob/main/examples/example-custom.pdf)) - Comprehensive example demonstrating all configuration options
+- [example-epi.typ](https://github.com/benzipperer/metropolyst/blob/main/examples/example-epi.typ) ([PDF](https://github.com/benzipperer/metropolyst/blob/main/examples/example-epi.pdf)) - Example using the built-in EPI brand preset
 
 ---
 
