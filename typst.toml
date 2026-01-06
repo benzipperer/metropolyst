@@ -8,7 +8,7 @@ description = "A highly configurable Metropolis-style presentation theme for Tou
 repository = "https://github.com/benzipperer/metropolyst"
 keywords = ["presentation", "slides", "metropolis", "theme", "touying", "beamer"]
 categories = ["presentation", "layout"]
-exclude = ["examples", "CLAUDE.md", "WORKPLAN.md"]
+exclude = ["assets"]
 compiler = "0.12.0"
 
 [template]

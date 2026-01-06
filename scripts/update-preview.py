@@ -9,7 +9,7 @@ from PIL import Image
 SCRIPT_DIR = Path(__file__).parent
 PROJECT_ROOT = SCRIPT_DIR.parent
 PDF_PATH = PROJECT_ROOT / "examples" / "example-default.pdf"
-OUTPUT_PATH = PROJECT_ROOT / "preview.png"
+OUTPUT_PATH = PROJECT_ROOT / "assets" / "preview.png"
 
 COLS = 3
 ROWS = 2
