@@ -5,6 +5,7 @@ This document outlines the steps to organize and submit the Metropolyst theme as
 ## Reference Documentation
 
 - [Typst Packages Submission Guide](https://github.com/typst/packages/blob/main/docs/README.md)
+- [Typst Packages Tips](https://github.com/typst/packages/blob/main/docs/tips.md) - What to commit vs exclude
 
 ---
 
@@ -22,27 +23,41 @@ metropolyst/
 
 ## Target Package Structure
 
+### Files committed to typst/packages repo
+
+These files are copied by `scripts/copy-to-packages.sh`:
+
+```
+packages/preview/metropolyst/0.1.0/
+├── typst.toml           # Package manifest
+├── lib.typ              # Package entrypoint
+├── LICENSE              # License file
+├── README.md            # Documentation (displayed on Typst Universe)
+├── thumbnail.png        # Template thumbnail (for Typst Universe picker)
+├── template/            # Template directory
+│   └── main.typ         # Template entrypoint
+└── assets/              # Documentation assets (excluded from archive via typst.toml)
+    └── preview.png      # README preview image
+```
+
+### Files in source repo only (NOT submitted)
+
 ```
 metropolyst/
-├── typst.toml           # Package manifest (NEW)
-├── lib.typ              # Package entrypoint (RENAME from metropolyst.typ)
-├── LICENSE              # License file (NEW)
-├── README.md            # Documentation (EXISTS, needs updates)
-├── template/            # Template directory (NEW)
-│   └── main.typ         # Template entrypoint (NEW, based on example-default.typ)
-├── thumbnail.png        # Package thumbnail (NEW)
-│
-├── # Files kept in repo but excluded from package:
 ├── CLAUDE.md            # Developer instructions
 ├── WORKPLAN.md          # This file
-└── examples/            # Development examples (NEW directory)
-    ├── example-default.typ
-    ├── example-default.pdf
-    ├── example-custom.typ
-    ├── example-custom.pdf
-    ├── example-epi.typ
-    └── example-epi.pdf
+├── TODO.md              # Development notes
+├── scripts/             # Build/utility scripts
+│   ├── copy-to-packages.sh
+│   └── update-preview.py
+└── examples/            # Development examples
+    ├── example-*.typ
+    └── example-*.pdf
 ```
+
+### What users download (archive excludes)
+
+The `exclude = ["assets"]` in `typst.toml` means users downloading the package get everything except the assets directory (preview.png is only for README display on Typst Universe).
 
 ---
 
@@ -381,7 +396,7 @@ rm -rf ~/.local/share/typst/packages/preview/metropolyst/0.1.0
 #### 7.1 Fork typst/packages
 
 ```bash
-# Clone with sparse checkout (recommended)
+# Clone with sparse checkout (recommended for large repo)
 git clone --filter=blob:none --sparse https://github.com/typst/packages
 cd packages
 git sparse-checkout set packages/preview
@@ -391,33 +406,40 @@ git sparse-checkout set packages/preview
 
 ```bash
 mkdir -p packages/preview/metropolyst/0.1.0
+cd packages/preview/metropolyst/0.1.0
 ```
 
-#### 7.3 Copy package files
+#### 7.3 Copy package files using script
+
+Use the copy script from the source repo:
 
 ```bash
-cp ~/projects/metropolyst/typst.toml packages/preview/metropolyst/0.1.0/
-cp ~/projects/metropolyst/lib.typ packages/preview/metropolyst/0.1.0/
-cp ~/projects/metropolyst/README.md packages/preview/metropolyst/0.1.0/
-cp ~/projects/metropolyst/LICENSE packages/preview/metropolyst/0.1.0/
-cp ~/projects/metropolyst/thumbnail.png packages/preview/metropolyst/0.1.0/
-cp -r ~/projects/metropolyst/template packages/preview/metropolyst/0.1.0/
+# From the package version directory (packages/preview/metropolyst/0.1.0/)
+~/projects/metropolyst/scripts/copy-to-packages.sh ~/projects/metropolyst
 ```
 
-**Do NOT copy:**
-- `examples/` (development examples and PDFs)
-- `CLAUDE.md`
-- `WORKPLAN.md`
+The script copies:
+- Required files: `typst.toml`, `lib.typ`, `LICENSE`, `README.md`, `thumbnail.png`
+- Template directory: `template/`
+- Documentation assets: `assets/` (excluded from archive but needed for README preview)
+
+**NOT copied (by design):**
+- `examples/` - Development examples and PDFs
+- `scripts/` - Build utilities
+- `CLAUDE.md`, `WORKPLAN.md`, `TODO.md` - Development docs
 - `.git/`
 
 #### 7.4 Verify package structure
 
 ```bash
-tree packages/preview/metropolyst/0.1.0/
+cd packages/preview/metropolyst/0.1.0
+tree .
 # Expected:
-# packages/preview/metropolyst/0.1.0/
+# .
 # ├── LICENSE
 # ├── README.md
+# ├── assets
+# │   └── preview.png
 # ├── lib.typ
 # ├── template
 # │   └── main.typ
@@ -428,6 +450,7 @@ tree packages/preview/metropolyst/0.1.0/
 #### 7.5 Create pull request
 
 ```bash
+cd ~/path/to/packages  # Return to repo root
 git add packages/preview/metropolyst
 git commit -m "Add metropolyst 0.1.0 - configurable Metropolis theme for Touying"
 git push origin main
@@ -449,7 +472,7 @@ git push origin main
 - [x] Update `examples/example-*.typ` to import from `../lib.typ`
 - [x] Rebuild and verify all examples compile
 - [ ] Fork typst/packages repository
-- [ ] Copy package files to correct directory
+- [ ] Copy package files using `scripts/copy-to-packages.sh`
 - [ ] Submit pull request
 
 ---
@@ -472,5 +495,6 @@ For future versions:
 1. Update version in `typst.toml`
 2. Update version in `template/main.typ` import
 3. Update version in `README.md` examples
-4. Create new directory: `packages/preview/metropolyst/0.2.0/`
-5. Submit PR (same author required, or get approval from previous author)
+4. Create new directory in packages repo: `packages/preview/metropolyst/0.2.0/`
+5. Run `scripts/copy-to-packages.sh` from the new version directory
+6. Submit PR (same author required, or get approval from previous author)

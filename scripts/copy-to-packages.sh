@@ -23,6 +23,7 @@ cp "$SRC/typst.toml" .
 cp "$SRC/lib.typ" .
 cp "$SRC/LICENSE" .
 cp "$SRC/README.md" .
+cp "$SRC/thumbnail.png" .
 
 # Template directory
 cp -r "$SRC/template" .
