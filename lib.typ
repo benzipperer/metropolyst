@@ -2,7 +2,7 @@
 // Inspired by https://github.com/matze/mtheme and the Touying Metropolis theme
 // Unlike Metropolis, this theme exposes all font properties as configuration options
 
-#import "@preview/touying:0.5.3": *
+#import "@preview/touying:0.6.1": *
 
 /// Built-in brand presets for organizational styling.
 /// Usage: `#show: metropolyst-theme.with(..brands.EPI)`

@@ -13,12 +13,30 @@ This document outlines the steps to organize and submit the Metropolyst theme as
 
 ```
 metropolyst/
-├── metropolyst.typ      # Theme implementation
-├── example-default.typ  # Default configuration example (relative import)
-├── example-custom.typ   # Custom configuration example (relative import)
-├── example-epi.typ      # EPI brand example (relative import)
-├── README.md            # Documentation
-└── CLAUDE.md            # Developer instructions
+├── lib.typ              # Theme implementation (package entrypoint)
+├── typst.toml           # Package manifest
+├── template/
+│   └── main.typ         # Template for typst init
+├── examples/
+│   ├── example-default.typ  # Default Fira Sans example
+│   ├── example-custom.typ   # Custom Lato example
+│   ├── example-epi.typ      # EPI brand preset example
+│   ├── example_figure_light.png  # Figure asset for epi example
+│   └── example_figure_white.png  # Figure asset for epi example
+├── scripts/
+│   ├── update-preview.py    # Generate preview.png
+│   ├── copy-to-packages.sh  # Copy files for typst/packages PR
+│   ├── example_figures.R    # R script for example figures
+│   └── productivity_pay.csv # Data for example figures
+├── assets/
+│   └── preview.png      # README preview image
+├── README.md            # User documentation
+├── LICENSE              # MIT license
+├── thumbnail.png        # Typst Universe thumbnail
+├── CLAUDE.md            # Developer guide
+├── TODO.md              # Development todo list
+├── UPDATE.md            # Submission instructions
+└── WORKPLAN_PUBLISH.md  # This file
 ```
 
 ## Target Package Structure
@@ -44,15 +62,20 @@ packages/preview/metropolyst/0.1.0/
 
 ```
 metropolyst/
-├── CLAUDE.md            # Developer instructions
-├── WORKPLAN.md          # This file
+├── CLAUDE.md            # Developer guide
+├── WORKPLAN_PUBLISH.md  # This file
+├── UPDATE.md            # Submission instructions
 ├── TODO.md              # Development notes
 ├── scripts/             # Build/utility scripts
 │   ├── copy-to-packages.sh
-│   └── update-preview.py
+│   ├── update-preview.py
+│   ├── example_figures.R
+│   └── productivity_pay.csv
 └── examples/            # Development examples
     ├── example-*.typ
-    └── example-*.pdf
+    ├── example-*.pdf
+    ├── example_figure_light.png
+    └── example_figure_white.png
 ```
 
 ### What users download (archive excludes)
@@ -399,7 +422,7 @@ First, fork the typst/packages repository on GitHub, then clone your fork with s
 
 ```bash
 # Clone your fork with sparse checkout (recommended for large repo)
-git clone --depth 1 --no-checkout --filter="tree:0" git@github.com:YOUR_USERNAME/packages
+git clone --depth 1 --no-checkout --filter="tree:0" git@github.com:benzipperer/packages
 cd packages
 git sparse-checkout init
 git sparse-checkout set packages/preview/metropolyst
@@ -407,8 +430,6 @@ git remote add upstream git@github.com:typst/packages
 git config remote.upstream.partialclonefilter tree:0
 git checkout main
 ```
-
-Replace `YOUR_USERNAME` with your GitHub username.
 
 #### 7.2 Create package directory
 

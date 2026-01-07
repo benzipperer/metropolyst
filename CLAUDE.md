@@ -6,18 +6,31 @@ Typst presentation theme based on Metropolis with fully configurable fonts and c
 
 Always keep this list of files up-to-date.
 
+### Package files (submitted to typst/packages)
+
 - `lib.typ` - Theme implementation (package entrypoint)
 - `typst.toml` - Package manifest
 - `template/main.typ` - Template for `typst init`
-- `examples/example-default.typ` - Default Fira Sans example (excluded from package archive)
-- `examples/example-custom.typ` - Custom Lato example (excluded from package archive)
-- `examples/example-epi.typ` - EPI brand preset example (excluded from package archive)
 - `README.md` - User documentation
 - `LICENSE` - MIT license
+- `thumbnail.png` - Template thumbnail for Typst Universe picker
+- `assets/preview.png` - README preview image (excluded from package archive)
+
+### Development files (not submitted)
+
+- `examples/example-default.typ` - Default Fira Sans example
+- `examples/example-custom.typ` - Custom Lato example
+- `examples/example-epi.typ` - EPI brand preset example
+- `examples/example_figure_light.png` - Figure asset for epi example (light background)
+- `examples/example_figure_white.png` - Figure asset for epi example (white background)
 - `scripts/update-preview.py` - Generate assets/preview.png from example-default.pdf
 - `scripts/copy-to-packages.sh` - Copy files for typst/packages PR (run from destination)
-- `assets/preview.png` - README preview image (excluded from package archive)
+- `scripts/example_figures.R` - R script to generate example figure PNGs
+- `scripts/productivity_pay.csv` - Data file for example_figures.R
+- `CLAUDE.md` - Developer guide (this file)
 - `UPDATE.md` - Submission instructions for typst/packages
+- `TODO.md` - Development todo list
+- `WORKPLAN_PUBLISH.md` - Workplan for publishing to Typst Universe
 
 ## Build & Verify
 
