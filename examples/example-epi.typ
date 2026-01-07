@@ -2,7 +2,6 @@
 // This example demonstrates the built-in EPI brand preset
 
 #import "../lib.typ": *
-#import "@preview/touying:0.5.3": *
 
 // Apply the EPI brand with a single spread operator
 #show: metropolyst-theme.with(
@@ -54,9 +53,19 @@ Define brands as dictionaries:
   footer-right: none,
 )
 ```
-
 #focus-slide[
   One line to apply
 
   organizational branding
 ]
+
+== Figures
+
+  #slide[
+    === Figure with white background
+    #image("example_figure_white.png")
+  ][
+
+    === Figure with light neutral background
+    #image("example_figure_light.png")
+  ]
