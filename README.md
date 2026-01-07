@@ -22,14 +22,6 @@ Initialize a new project with the template:
 typst init @preview/metropolyst:0.1.0
 ```
 
-### Local Development
-
-Clone the repository and import directly:
-
-```typst
-#import "lib.typ": metropolyst-theme, brands
-```
-
 ## Slide Types
 
 Metropolyst provides four slide types:
