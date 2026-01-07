@@ -152,6 +152,11 @@ Colors cascade: `accent-color` affects links, separators, and progress bars when
 | `progress-bar-background` | `rgb("#d6c6b7")` | — | Progress bar background |
 | `header-background-color` | `rgb("#23373b")` | — | Slide header background |
 | `focus-background-color` | `auto` | `header-background-color` | Focus slide background |
+| `main-background-color` | `rgb("#fafafa")` | — | Slide, title, and section background |
+| `main-text-color` | `rgb("#23373b")` | — | Body text, title, and section text |
+| `header-text-color` | `auto` | `main-background-color` | Slide header text |
+| `focus-text-color` | `auto` | `main-background-color` | Focus slide text |
+| `footer-text-color` | `auto` | `main-text-color` | Slide footer text |
 
 ---
 

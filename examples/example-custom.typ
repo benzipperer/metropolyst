@@ -72,6 +72,13 @@
   header-background-color: rgb("#1e1b4b"),   // Deep indigo header background
   focus-background-color: rgb("#1e1b4b"),    // Deep indigo focus slide background
 
+  // Background and text colors (independent from neutral-lightest/darkest)
+  main-background-color: white,              // Pure white slide backgrounds
+  // main-text-color: rgb("#23373b"),        // Body text color (default)
+  // header-text-color: auto,                // Header text (defaults to main-background-color)
+  // focus-text-color: auto,                 // Focus slide text (defaults to main-background-color)
+  // footer-text-color: auto,                // Footer text (defaults to main-text-color)
+
   // ============================================================
   // PRESENTATION INFO
   // ============================================================
@@ -190,18 +197,23 @@ This presentation uses *violet* (\#7c3aed) as the base accent.
 
 Each accent element has a custom color:
 
-#text(size: 0.75em)[
+#text(size: 0.65em)[
 #table(
   columns: (1fr, 1fr, 1fr, 1fr),
-  inset: 6pt,
+  inset: 5pt,
   align: left,
   [*Option*], [*Default*], [*This Presentation*], [*Where Used*],
   [`accent-color`], [#box(fill: rgb("#eb811b"), width: 1em, height: 1em) Orange], [#box(fill: rgb("#7c3aed"), width: 1em, height: 1em) Violet], [Base color, alert],
   [`hyperlink-color`], [`auto`], [#box(fill: rgb("#6366f1"), width: 1em, height: 1em) Indigo], [Links],
   [`progress-bar-color`], [`auto`], [#box(fill: rgb("#7c3aed"), width: 1em, height: 1em) Violet], [Progress bar],
   [`line-separator-color`], [`auto`], [#box(fill: rgb("#7c3aed"), width: 1em, height: 1em) Violet], [Title line],
-  [`header-background-color`], [#box(fill: rgb("#23373b"), width: 1em, height: 1em) Dark], [#box(fill: rgb("#1e1b4b"), width: 1em, height: 1em) Indigo], [Header],
-  [`focus-background-color`], [`auto`], [#box(fill: rgb("#1e1b4b"), width: 1em, height: 1em) Indigo], [Focus slides],
+  [`header-background-color`], [#box(fill: rgb("#23373b"), width: 1em, height: 1em) Dark], [#box(fill: rgb("#1e1b4b"), width: 1em, height: 1em) Indigo], [Header bg],
+  [`focus-background-color`], [`auto`], [#box(fill: rgb("#1e1b4b"), width: 1em, height: 1em) Indigo], [Focus bg],
+  [`main-background-color`], [#box(fill: rgb("#fafafa"), width: 1em, height: 1em) Light], [#box(fill: white, stroke: 0.5pt + gray, width: 1em, height: 1em) White], [Slide bg],
+  [`main-text-color`], [#box(fill: rgb("#23373b"), width: 1em, height: 1em) Dark], [default], [Body text],
+  [`header-text-color`], [`auto`], [`auto`], [Header text],
+  [`focus-text-color`], [`auto`], [`auto`], [Focus text],
+  [`footer-text-color`], [`auto`], [`auto`], [Footer text],
 )
 ]
 
@@ -292,9 +304,9 @@ Set `font` once to change all fonts, or override individual elements.
 - 5 element-specific font overrides
 - 16 size/weight options
 
-*Color options* (7 total):
+*Color options* (12 total):
 - 1 base accent color
-- 6 specific color overrides
+- 11 specific color overrides
 
 *Layout options* (7 total):
 - Aspect ratio, alignment, progress bar

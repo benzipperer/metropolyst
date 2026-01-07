@@ -59,7 +59,7 @@
     show: components.cell.with(fill: self.store.header-background-color, inset: (top: 1.2em, bottom: 1.2em, x: 1em))
     set std.align(horizon)
     set text(
-      fill: self.colors.neutral-lightest,
+      fill: self.store.header-text-color,
       weight: self.store.header-weight,
       size: self.store.header-size,
       font: self.store.header-font,
@@ -86,10 +86,10 @@
       .5em,
       components.left-and-right(
         text(
-          fill: self.colors.neutral-darkest.lighten(40%),
+          fill: self.store.footer-text-color.lighten(40%),
           utils.call-or-display(self, self.store.footer),
         ),
-        text(fill: self.colors.neutral-darkest, utils.call-or-display(
+        text(fill: self.store.footer-text-color, utils.call-or-display(
           self,
           self.store.footer-right,
         )),
@@ -106,14 +106,14 @@
   let self = utils.merge-dicts(
     self,
     config-page(
-      fill: self.colors.neutral-lightest,
+      fill: self.store.main-background-color,
       header: header,
       footer: footer,
     ),
   )
   let new-setting = body => {
     show: std.align.with(self.store.align)
-    set text(fill: self.colors.neutral-darkest)
+    set text(fill: self.store.main-text-color)
     // Hide slide title headings in body (they appear in the header)
     show heading.where(level: 1): none
     show: setting
@@ -157,12 +157,12 @@
     self,
     config,
     config-common(freeze-slide-counter: true),
-    config-page(fill: self.colors.neutral-lightest),
+    config-page(fill: self.store.main-background-color),
   )
   let info = self.info + args.named()
   let body = {
     set text(
-      fill: self.colors.neutral-darkest,
+      fill: self.store.main-text-color,
       font: self.store.title-font,
     )
     set std.align(horizon)
@@ -268,7 +268,7 @@
       font: self.store.section-font,
       weight: self.store.section-weight,
     )
-    set text(fill: self.colors.neutral-darkest)
+    set text(fill: self.store.main-text-color)
     stack(
       dir: ttb,
       spacing: 1em,
@@ -288,7 +288,7 @@
   }
   self = utils.merge-dicts(
     self,
-    config-page(fill: self.colors.neutral-lightest),
+    config-page(fill: self.store.main-background-color),
   )
   touying-slide(self: self, config: config, slide-body)
 })
@@ -312,7 +312,7 @@
     config-page(fill: self.store.focus-background-color, margin: 2em),
   )
   set text(
-    fill: self.colors.neutral-lightest,
+    fill: self.store.focus-text-color,
     size: self.store.focus-size,
     font: self.store.focus-font,
     weight: self.store.focus-weight,
@@ -395,6 +395,11 @@
 /// - progress-bar-background: Background color for progress bars (default: #d6c6b7). Set to `auto` to derive from accent-color.
 /// - header-background-color: Background color for the slide header containing titles (defaults to #23373b)
 /// - focus-background-color: Background color for focus slides (defaults to header-background-color when auto)
+/// - main-background-color: Background color for slides, title slides, and section slides (default: #fafafa)
+/// - main-text-color: Text color for body text, title slides, and section slides (default: #23373b)
+/// - header-text-color: Text color for slide headers (defaults to main-background-color when auto)
+/// - focus-text-color: Text color for focus slides (defaults to main-background-color when auto)
+/// - footer-text-color: Text color for slide footers (defaults to main-text-color when auto)
 ///
 /// - aspect-ratio (string): The aspect ratio of the slides. Default is `16-9`.
 ///
@@ -463,6 +468,12 @@
   progress-bar-background: rgb("#d6c6b7"),
   header-background-color: auto,
   focus-background-color: auto,
+  // Background and text color configuration
+  main-background-color: rgb("#fafafa"),
+  main-text-color: rgb("#23373b"),
+  header-text-color: auto,
+  focus-text-color: auto,
+  footer-text-color: auto,
   ..args,
   body,
 ) = {
@@ -487,7 +498,11 @@
   let resolved-focus-background-color = if focus-background-color == auto { resolved-header-background-color } else {
     focus-background-color
   }
-  set text(size: 20pt, font: font, weight: "light")
+  // Resolve background and text colors
+  let resolved-header-text-color = if header-text-color == auto { main-background-color } else { header-text-color }
+  let resolved-focus-text-color = if focus-text-color == auto { main-background-color } else { focus-text-color }
+  let resolved-footer-text-color = if footer-text-color == auto { main-text-color } else { footer-text-color }
+  set text(size: 20pt, font: font, weight: "light", stretch: 100%)
   set strong(delta: 100)
 
   // Style hyperlinks with configurable color
@@ -532,6 +547,12 @@
       progress-bar-background: resolved-progress-bar-background,
       header-background-color: resolved-header-background-color,
       focus-background-color: resolved-focus-background-color,
+      // Background and text colors
+      main-background-color: main-background-color,
+      main-text-color: main-text-color,
+      header-text-color: resolved-header-text-color,
+      focus-text-color: resolved-focus-text-color,
+      footer-text-color: resolved-footer-text-color,
       // Store font configuration (using resolved values)
       header-font: resolved-header-font,
       header-size: header-size,
