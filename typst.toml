@@ -2,9 +2,9 @@
 name = "metropolyst"
 version = "0.1.0"
 entrypoint = "lib.typ"
-authors = ["Ben Zipperer"]
+authors = ["Ben Zipperer <@benzipperer>"]
 license = "MIT"
-description = "A highly configurable Metropolis-style presentation theme for Touying with full font and color customization"
+description = "Configurable Metropolis presentation theme for Touying."
 repository = "https://github.com/benzipperer/metropolyst"
 keywords = ["presentation", "slides", "metropolis", "theme", "touying", "beamer"]
 categories = ["presentation", "layout"]

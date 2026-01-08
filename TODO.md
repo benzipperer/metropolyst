@@ -2,8 +2,6 @@
 
 ## Open
 
-*No open issues*
-
 ------------------------------------------------------------------------
 
 ## This is the issue template. Do not remove.

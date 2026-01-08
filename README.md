@@ -244,8 +244,6 @@ Or define inline:
 ]
 ```
 
-See [example-default.typ](https://github.com/benzipperer/metropolyst/blob/main/examples/example-default.typ) for a minimal working example and [example-custom.typ](https://github.com/benzipperer/metropolyst/blob/main/examples/example-custom.typ) for a comprehensive demonstration of all configuration options.
-
 ---
 
 ## Presentation Info
@@ -295,9 +293,9 @@ Download from [Google Fonts](https://fonts.google.com/specimen/Fira+Sans) and in
 
 ## Examples
 
-- [example-default.typ](https://github.com/benzipperer/metropolyst/blob/main/examples/example-default.typ) ([PDF](https://github.com/benzipperer/metropolyst/blob/main/examples/example-default.pdf)) - Minimal example using default settings
-- [example-custom.typ](https://github.com/benzipperer/metropolyst/blob/main/examples/example-custom.typ) ([PDF](https://github.com/benzipperer/metropolyst/blob/main/examples/example-custom.pdf)) - Comprehensive example demonstrating all configuration options
-- [example-epi.typ](https://github.com/benzipperer/metropolyst/blob/main/examples/example-epi.typ) ([PDF](https://github.com/benzipperer/metropolyst/blob/main/examples/example-epi.pdf)) - Example using the built-in EPI brand preset
+- [example-default.typ](https://github.com/benzipperer/metropolyst/blob/v0.1.0/examples/example-default.typ) ([PDF](https://github.com/benzipperer/metropolyst/blob/v0.1.0/examples/example-default.pdf)) - Minimal example using default settings
+- [example-custom.typ](https://github.com/benzipperer/metropolyst/blob/v0.1.0/examples/example-custom.typ) ([PDF](https://github.com/benzipperer/metropolyst/blob/v0.1.0/examples/example-custom.pdf)) - Comprehensive example demonstrating all configuration options
+- [example-epi.typ](https://github.com/benzipperer/metropolyst/blob/v0.1.0/examples/example-epi.typ) ([PDF](https://github.com/benzipperer/metropolyst/blob/v0.1.0/examples/example-epi.pdf)) - Example using the built-in EPI brand preset
 
 ---
 
@@ -309,4 +307,4 @@ Download from [Google Fonts](https://fonts.google.com/specimen/Fira+Sans) and in
 
 ## License
 
-This theme follows the same license as the original Touying Metropolis theme.
+MIT License. See [LICENSE](LICENSE) for details.
