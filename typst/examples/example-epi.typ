@@ -61,11 +61,11 @@ Define brands as dictionaries:
 
 == Figures
 
-  #slide[
-    === Figure with white background
-    #image("example_figure_white.png")
-  ][
+#slide[
+  === Figure with white background
+  #image("example_figure_white.png")
+][
 
-    === Figure with light neutral background
-    #image("example_figure_light.png")
-  ]
+  === Figure with light neutral background
+  #image("example_figure_light.png")
+]
