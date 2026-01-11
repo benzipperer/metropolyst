@@ -1,0 +1,117 @@
+---
+title: "Metropolyst Quarto Example"
+subtitle: "A Highly Configurable Presentation Theme"
+author: "Ben Zipperer"
+date: today
+institute: "GitHub"
+format:
+  metropolyst-typst:
+    aspect-ratio: "16-9"
+    footer-progress: true
+---
+
+# Introduction
+
+## Getting Started
+
+This presentation demonstrates the Metropolyst theme for Quarto.
+
+**Default styling includes:**
+
+- Aspect ratio: 16:9
+- Fonts: Fira Sans throughout
+- Accent color: Orange (#eb811b)
+- Header background: Dark teal (#23373b)
+
+## Text Formatting
+
+Standard Markdown formatting works as expected:
+
+- **Bold text** for emphasis
+- *Italic text* for subtle emphasis
+- `Inline code` for technical terms
+- [Hyperlinks](https://github.com/benzipperer/metropolyst) are styled with the accent color
+
+# Features
+
+## Code Blocks
+
+```python
+def fibonacci(n):
+    """Generate Fibonacci sequence."""
+    a, b = 0, 1
+    for _ in range(n):
+        yield a
+        a, b = b, a + b
+
+list(fibonacci(10))
+```
+
+## Two-Column Layout
+
+::: {layout-ncol=2}
+### Analysis
+
+The left column contains your main analysis or explanation text.
+
+### Results
+
+The right column can show complementary information or results.
+:::
+
+## Bullet Points
+
+Key takeaways from our analysis:
+
+1. First numbered point
+2. Second numbered point
+3. Third numbered point
+
+Unordered list:
+
+- Primary finding
+- Secondary finding
+- Additional notes
+
+# Configuration
+
+## Custom Colors
+
+You can customize all colors via YAML:
+
+```yaml
+format:
+  metropolyst-typst:
+    accent-color: "#0077b6"
+    header-background-color: "#023e8a"
+    main-background-color: "#ffffff"
+```
+
+## Brand Presets
+
+Apply organizational branding with one line:
+
+```yaml
+format:
+  metropolyst-typst:
+    brand: "EPI"
+```
+
+# Conclusion
+
+## Summary
+
+Metropolyst provides:
+
+- Clean, professional design
+- Easy YAML configuration
+- Full Typst power when needed
+- Brand preset support
+
+```{=typst}
+#focus-slide[
+  Thank you!
+
+  Questions?
+]
+```

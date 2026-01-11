@@ -1,0 +1,83 @@
+---
+title: "Your Presentation Title"
+subtitle: "Optional Subtitle"
+author: "Your Name"
+date: today
+institute: "Your Institution"
+format:
+  metropolyst-typst:
+    # Layout options
+    aspect-ratio: "16-9"          # or "4-3"
+    footer-progress: true
+
+    # Color customization (all optional)
+    # accent-color: "#eb811b"
+    # header-background-color: "#23373b"
+    # main-background-color: "#fafafa"
+
+    # Font customization (all optional)
+    # font: "Fira Sans"
+
+    # Brand presets (overrides color/font settings)
+    # brand: "EPI"
+---
+
+# Introduction
+
+## Getting Started
+
+This presentation uses the Metropolyst theme, a highly configurable variant of the classic Metropolis style.
+
+**Default settings:**
+
+- Aspect ratio: 16:9
+- Fonts: Fira Sans throughout
+- Accent color: Orange (#eb811b)
+- Header background: Dark teal (#23373b)
+
+## Bullet Points
+
+You can use standard Markdown:
+
+- First point
+- Second point
+- Third point with **bold** and *italic* text
+
+## Two Columns
+
+::: {layout-ncol=2}
+### Left Column
+
+Content for the left side.
+
+### Right Column
+
+Content for the right side.
+:::
+
+# Main Content
+
+## Code Blocks
+
+```python
+def hello_world():
+    print("Hello, Metropolyst!")
+```
+
+## Links and Emphasis
+
+Visit the [documentation](https://github.com/benzipperer/metropolyst) for all configuration options.
+
+Use `#alert[text]` in Typst blocks for highlighted text.
+
+# Conclusion
+
+## Summary
+
+Metropolyst provides a clean, professional presentation style with easy customization through YAML front matter.
+
+```{=typst}
+#focus-slide[
+  Thank you!
+]
+```
