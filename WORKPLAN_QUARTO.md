@@ -203,26 +203,205 @@ Each implementation:
 
 ### Phase 4: Testing & Verification
 
+#### 4.1 Build Verification
+
 1. Build all Typst examples:
    ```bash
    for f in typst/examples/example-*.typ; do typst compile --root ./typst "$f"; done
    ```
 
-2. Build Quarto example:
+2. Build Quarto examples:
    ```bash
+   cd quarto && quarto render examples/example.qmd
    cd quarto && quarto render template.qmd
    ```
 
-3. Verify font embedding for all PDFs:
-   ```bash
-   for f in typst/examples/*.pdf quarto/examples/*.pdf; do pdffonts "$f"; done
-   ```
-
-4. Test Quarto installation from GitHub:
+3. Test Quarto installation from GitHub:
    ```bash
    cd /tmp && mkdir test-quarto && cd test-quarto
    quarto add benzipperer/metropolyst/quarto --no-prompt
    ```
+
+#### 4.2 Font Embedding Verification
+
+Verify both Typst and Quarto outputs embed the same fonts:
+
+```bash
+# Check font embedding for all PDFs
+for f in typst/examples/*.pdf quarto/examples/*.pdf quarto/*.pdf; do
+  echo "=== $f ==="
+  pdffonts "$f"
+done
+```
+
+Expected: Quarto output should embed identical fonts as equivalent Typst examples.
+
+#### 4.3 Quarto-Typst Output Equivalence Tests
+
+Create a parallel test example that can be compiled via both Typst and Quarto to verify identical output:
+
+1. **Create matching test files**:
+   - `tests/reference.typ` - Native Typst version
+   - `tests/reference.qmd` - Quarto version with equivalent content
+
+2. **PDF metadata comparison**:
+   ```bash
+   # Compare page count and dimensions
+   pdfinfo typst/examples/example-default.pdf | grep -E "Pages|Page size"
+   pdfinfo quarto/examples/example.pdf | grep -E "Pages|Page size"
+   ```
+
+3. **Visual regression testing** (using pdftoppm + ImageMagick):
+   ```bash
+   # Convert PDFs to images for comparison
+   mkdir -p tests/output
+   pdftoppm -png tests/reference-typst.pdf tests/output/typst
+   pdftoppm -png tests/reference-quarto.pdf tests/output/quarto
+
+   # Compare each page (returns 0 if identical, non-zero with diff image if different)
+   for i in tests/output/typst-*.png; do
+     page=$(basename "$i" .png | sed 's/typst-//')
+     compare -metric AE "$i" "tests/output/quarto-$page.png" "tests/output/diff-$page.png" 2>&1
+   done
+   ```
+
+4. **Text content extraction and comparison**:
+   ```bash
+   # Extract text from both PDFs and compare structure
+   pdftotext tests/reference-typst.pdf tests/output/typst.txt
+   pdftotext tests/reference-quarto.pdf tests/output/quarto.txt
+   diff tests/output/typst.txt tests/output/quarto.txt
+   ```
+
+#### 4.4 Slide Geometry Tests
+
+Verify slide dimensions match between Typst and Quarto outputs:
+
+```bash
+# Check page dimensions (should be 720x405 pt for 16:9)
+mutool info typst/examples/example-default.pdf | grep -A2 "Page"
+mutool info quarto/examples/example.pdf | grep -A2 "Page"
+```
+
+#### 4.5 Theme Configuration Parity Tests
+
+Create test cases that verify all theme parameters produce identical results:
+
+| Test Case | Typst Config | Quarto YAML | Expected |
+|-----------|--------------|-------------|----------|
+| Default theme | `metropolyst-theme()` | `format: metropolyst-typst` | Identical output |
+| Custom accent | `accent-color: red` | `accent-color: red` | Same red accent |
+| Custom fonts | `font: "Lato"` | `font: "Lato"` | Same font rendering |
+| Footer progress | `footer-progress: true` | `footer-progress: true` | Same progress bar |
+| Brand preset | `preset: epi-preset` | `brand: "EPI"` | Same EPI styling |
+
+Test script (`scripts/test-parity.sh`):
+```bash
+#!/bin/bash
+set -e
+
+echo "Building Typst reference..."
+typst compile --root ./typst tests/parity-default.typ tests/output/parity-default-typst.pdf
+
+echo "Building Quarto version..."
+cd quarto && quarto render ../tests/parity-default.qmd -o ../tests/output/parity-default-quarto.pdf
+
+echo "Comparing outputs..."
+# Convert to images
+pdftoppm -png -r 150 tests/output/parity-default-typst.pdf tests/output/typst-page
+pdftoppm -png -r 150 tests/output/parity-default-quarto.pdf tests/output/quarto-page
+
+# Compare with tolerance for minor rendering differences
+for typst_img in tests/output/typst-page-*.png; do
+  page=$(basename "$typst_img" | sed 's/typst-page-//' | sed 's/.png//')
+  quarto_img="tests/output/quarto-page-$page.png"
+
+  # Use RMSE metric with threshold (allow < 1% difference)
+  diff_value=$(compare -metric RMSE "$typst_img" "$quarto_img" null: 2>&1 | cut -d'(' -f2 | cut -d')' -f1)
+
+  if (( $(echo "$diff_value > 0.01" | bc -l) )); then
+    echo "FAIL: Page $page differs by ${diff_value}%"
+    compare "$typst_img" "$quarto_img" "tests/output/diff-page-$page.png"
+    exit 1
+  else
+    echo "PASS: Page $page (diff: ${diff_value}%)"
+  fi
+done
+
+echo "All parity tests passed!"
+```
+
+#### 4.6 Automated CI Tests (Future)
+
+Add GitHub Actions workflow (`.github/workflows/test.yml`):
+```yaml
+name: Test Quarto-Typst Parity
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Typst
+        run: cargo install --locked typst-cli
+
+      - name: Install Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Install test dependencies
+        run: sudo apt-get install -y poppler-utils imagemagick mupdf-tools
+
+      - name: Build Typst examples
+        run: |
+          for f in typst/examples/example-*.typ; do
+            typst compile --root ./typst "$f"
+          done
+
+      - name: Build Quarto examples
+        run: |
+          cd quarto && quarto render examples/example.qmd
+
+      - name: Run parity tests
+        run: ./scripts/test-parity.sh
+
+      - name: Upload diff artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: parity-diffs
+          path: tests/output/diff-*.png
+```
+
+#### 4.7 Test File Structure
+
+```
+tests/
+├── parity-default.typ         # Native Typst test document
+├── parity-default.qmd         # Equivalent Quarto document
+├── parity-custom.typ          # Custom theme options test
+├── parity-custom.qmd          # Equivalent Quarto version
+├── parity-epi.typ             # EPI preset test
+├── parity-epi.qmd             # Equivalent Quarto version
+└── output/                    # Generated during testing (gitignored)
+    ├── *.pdf
+    ├── *.png
+    └── *.txt
+```
+
+#### 4.8 Test Checklist
+
+- [ ] Typst examples compile without errors
+- [ ] Quarto examples render without errors
+- [ ] Font embedding matches between Typst and Quarto outputs
+- [ ] Page dimensions are identical (16:9 or 4:3)
+- [ ] Visual regression tests pass (< 1% pixel difference)
+- [ ] Text content extraction produces equivalent text
+- [ ] All theme parameters produce matching results
+- [ ] Brand presets render identically
+- [ ] Installation from GitHub succeeds
 
 ### Phase 5: Documentation
 
