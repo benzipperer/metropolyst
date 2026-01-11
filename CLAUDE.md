@@ -33,11 +33,15 @@ Always keep this list of files up-to-date.
 - `typst/examples/example_figure_light.png` - Figure asset for epi example (light background)
 - `typst/examples/example_figure_white.png` - Figure asset for epi example (white background)
 
-### Quarto extension (in `quarto/`, in development)
+### Quarto extension (in `quarto/`)
 
-- `quarto/_extensions/benzipperer/metropolyst/` - Extension files (see WORKPLAN_QUARTO.md)
-- `quarto/examples/` - Quarto examples
+- `quarto/_extensions/benzipperer/metropolyst/_extension.yml` - Extension manifest
+- `quarto/_extensions/benzipperer/metropolyst/typst-template.typ` - Template partial (imports theme)
+- `quarto/_extensions/benzipperer/metropolyst/typst-show.typ` - Show rule (maps YAML to Typst)
+- `quarto/_extensions/benzipperer/metropolyst/lib.typ` - Bundled theme (copied from typst/lib.typ)
+- `quarto/template.qmd` - Template document for `quarto use template`
 - `quarto/README.md` - Quarto-specific documentation
+- `quarto/examples/example.qmd` - Quarto example presentation
 
 ### Scripts
 
@@ -47,6 +51,8 @@ Always keep this list of files up-to-date.
 - `scripts/productivity_pay.csv` - Data file for example_figures.R
 
 ## Build & Verify
+
+### Typst Examples
 
 If `typst/template/main.typ` is updated, ensure that `typst/examples/example-default.typ` matches it.
 
@@ -62,6 +68,27 @@ python3 scripts/update-preview.py
 - `example-default.pdf`: FiraSans-{Regular,Light}
 - `example-custom.pdf`: Lato-{Regular,Bold,Medium,Semibold,Heavy}, DejaVuSansMono
 - `example-epi.pdf`: Roboto-{Regular,Light}, DejaVuSansMono
+
+### Quarto Extension
+
+After changes to `typst/lib.typ`, sync to Quarto extension:
+
+```bash
+cp typst/lib.typ quarto/_extensions/benzipperer/metropolyst/lib.typ
+```
+
+Build Quarto examples:
+
+```bash
+cd quarto && quarto render examples/example.qmd
+```
+
+Test installation from GitHub:
+
+```bash
+cd /tmp && mkdir test-quarto && cd test-quarto
+quarto add benzipperer/metropolyst/quarto --no-prompt
+```
 
 ## Adding Parameters
 
