@@ -294,7 +294,7 @@ When restructuring the repo:
 - [x] Move example files
 - [x] Update all import paths (no changes needed - relative paths still work)
 - [x] Create Quarto extension files
-- [ ] Create sync script (optional - manual cp documented in CLAUDE.md)
+- [x] Create sync script
 - [x] Update build scripts (copy-to-packages.sh, update-preview.py)
 - [x] Update documentation (root README.md, typst/README.md, quarto/README.md)
 - [x] Test Typst compilation

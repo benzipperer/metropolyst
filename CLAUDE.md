@@ -47,6 +47,7 @@ Always keep this list of files up-to-date.
 
 - `scripts/update-preview.py` - Generate typst/assets/preview.png from example-default.pdf
 - `scripts/copy-to-packages.sh` - Copy files for typst/packages PR (run from destination)
+- `scripts/sync-quarto-theme.sh` - Sync lib.typ from typst/ to Quarto extension
 - `scripts/example_figures.R` - R script to generate example figure PNGs
 - `scripts/productivity_pay.csv` - Data file for example_figures.R
 
@@ -74,7 +75,7 @@ python3 scripts/update-preview.py
 After changes to `typst/lib.typ`, sync to Quarto extension:
 
 ```bash
-cp typst/lib.typ quarto/_extensions/benzipperer/metropolyst/lib.typ
+./scripts/sync-quarto-theme.sh
 ```
 
 Build Quarto examples:
